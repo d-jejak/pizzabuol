@@ -87,12 +87,12 @@
 
     <div id="game-container" class="bg-white/95 backdrop-blur-md shadow-2xl overflow-hidden flex flex-col relative mx-auto">
         
-        <!-- Tombol Kontrol Musik Melayang di Pojok Kanan Atas Header (Diberi jarak aman dari atas) -->
+        <!-- Tombol Kontrol Musik Melayang di Pojok Kanan Atas Header -->
         <button onclick="toggleMusic()" id="music-btn" class="absolute top-12 sm:top-3 right-3 z-40 bg-white/30 hover:bg-white/50 text-white p-2 rounded-full text-xs transition backdrop-blur-sm flex items-center justify-center w-9 h-9 shadow cursor-pointer border border-white/40" title="Nyalakan/Matikan Musik">
             <i id="music-icon" class="fa-solid fa-volume-xmark"></i>
         </button>
 
-        <!-- HEADER GAME (Diberi ruang atas ekstra agar tidak tertutup notch HP) -->
+        <!-- HEADER GAME -->
         <header class="bg-gradient-to-r from-amber-500 to-orange-600 pt-10 pb-3 px-3 sm:py-3 text-white text-center shadow-md relative flex-shrink-0">
             <div class="absolute top-3 left-3 bg-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-extrabold tracking-wider uppercase backdrop-blur-sm">
                 <i class="fa-solid fa-flag-checkered mr-1"></i> Panjat Pinang Edukasi
@@ -101,46 +101,44 @@
             <p class="text-[9px] sm:text-[11px] text-amber-100 font-medium mt-0.5">Soal Mandiri Acak — Siapa Capai Puncak 100M Duluan Juaranya!</p>
         </header>
 
-        <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN (Background Gambar Kustom) -->
-        <div id="screen-menu" class="p-4 sm:p-6 text-center space-y-4 my-auto overflow-y-auto bg-cover bg-center relative" style="background-image: url('https://i.ibb.co.com/YBttk1hM/Chat-GPT-Image-19-Sep-2026-17-39-09.png');">
-            <!-- Overlay tipis agar teks tetap terbaca kontras di atas background gambar -->
-            <div class="absolute inset-0 bg-white/85 backdrop-blur-[2px]"></div>
+        <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN (Poster Utama) -->
+        <div id="screen-menu" class="p-3 sm:p-5 text-center space-y-3 my-auto overflow-y-auto">
+            
+            <!-- GAMBAR POSTER UTAMA -->
+            <div class="w-full max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg border-2 border-amber-300 animate-float bg-slate-100">
+                <img src="https://i.ibb.co.com/YBttk1hM/Chat-GPT-Image-19-Sep-2026-17-39-09.png" alt="Poster Operasi Penyelamatan Pizza Buol" class="w-full h-auto object-cover max-h-[160px] sm:max-h-[200px]">
+            </div>
 
-            <div class="relative z-10 space-y-4">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-amber-100 rounded-full flex items-center justify-center text-4xl shadow-inner animate-float border-4 border-amber-300 overflow-hidden p-2">
-                    <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Karakter Pria" class="w-full h-full object-contain">
+            <div class="space-y-1 max-w-md mx-auto">
+                <h2 class="font-black text-slate-900 text-sm sm:text-base">Operasi Penyelamatan Lyabulyo : Pizza Buol!</h2>
+                <p class="text-[11px] sm:text-xs text-slate-600 font-medium leading-relaxed">
+                    Setiap tim mendapatkan soal acak yang berbeda secara mandiri! Jawab benar 10 soal untuk mencapai puncak 100 Meter dan rebut kemenangan.
+                </p>
+                <div class="bg-amber-50 border border-amber-200 p-2 rounded-xl text-[10px] text-amber-900 font-bold mt-1 shadow-xs">
+                    💡 Peraturan: Tidak bisa contek-menyongtek karena soal setiap pemain berbeda!
                 </div>
-                <div class="space-y-1 max-w-md mx-auto">
-                    <h2 class="font-black text-slate-900 text-sm sm:text-base">Operasi Penyelamatan Lyabulyo : Pizza Buol!</h2>
-                    <p class="text-[11px] sm:text-xs text-slate-700 font-medium leading-relaxed">
-                        Setiap tim mendapatkan soal acak yang berbeda secara mandiri! Jawab benar 10 soal untuk mencapai puncak 100 Meter dan rebut kemenangan.
-                    </p>
-                    <div class="bg-amber-100/90 border border-amber-300 p-2 rounded-xl text-[10px] text-amber-900 font-bold mt-1 shadow-xs">
-                        💡 Peraturan: Tidak bisa contek-menyongtek karena soal setiap pemain berbeda!
-                    </div>
-                </div>
+            </div>
 
-                <!-- PILIHAN JUMLAH PEMAIN -->
-                <div class="space-y-2 max-w-sm mx-auto pt-1">
-                    <label class="block text-xs font-black text-slate-800 uppercase tracking-wide">Pilih Mode Jumlah Pemain:</label>
-                    <div class="grid grid-cols-3 gap-2">
-                        <button type="button" onclick="setPlayerCount(1)" id="btn-p1" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-amber-500 text-white border-amber-600 shadow">
-                            👤 1 Player
-                        </button>
-                        <button type="button" onclick="setPlayerCount(2)" id="btn-p2" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-50 shadow-sm">
-                            👥 2 Player
-                        </button>
-                        <button type="button" onclick="setPlayerCount(3)" id="btn-p3" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-50 shadow-sm">
-                            🏆 3 Player
-                        </button>
-                    </div>
-                </div>
-
-                <div class="pt-2">
-                    <button onclick="startGame()" class="w-full max-w-sm py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2 mx-auto">
-                        <i class="fa-solid fa-play"></i> Mulai Lomba Panjat Pinang
+            <!-- PILIHAN JUMLAH PEMAIN -->
+            <div class="space-y-1.5 max-w-sm mx-auto pt-1">
+                <label class="block text-xs font-black text-slate-800 uppercase tracking-wide">Pilih Mode Jumlah Pemain:</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button type="button" onclick="setPlayerCount(1)" id="btn-p1" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-amber-500 text-white border-amber-600 shadow">
+                        👤 1 Player
+                    </button>
+                    <button type="button" onclick="setPlayerCount(2)" id="btn-p2" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-50 shadow-sm">
+                        👥 2 Player
+                    </button>
+                    <button type="button" onclick="setPlayerCount(3)" id="btn-p3" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-50 shadow-sm">
+                        🏆 3 Player
                     </button>
                 </div>
+            </div>
+
+            <div class="pt-1">
+                <button onclick="startGame()" class="w-full max-w-sm py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2 mx-auto">
+                    <i class="fa-solid fa-play"></i> Mulai Lomba Panjat Pinang
+                </button>
             </div>
         </div>
 
@@ -174,7 +172,7 @@
                         <p id="p1-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P1 (Tiang lebih tinggi) -->
+                    <!-- VISUAL TIANG PINANG P1 -->
                     <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
                             <span class="text-lg animate-bounce drop-shadow">🍕🏆</span>
@@ -215,7 +213,7 @@
                         <p id="p2-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P2 (Tiang lebih tinggi) -->
+                    <!-- VISUAL TIANG PINANG P2 -->
                     <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
                             <span class="text-lg animate-bounce drop-shadow">🍕🏆</span>
@@ -256,7 +254,7 @@
                         <p id="p3-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P3 (Tiang lebih tinggi) -->
+                    <!-- VISUAL TIANG PINANG P3 -->
                     <div class="bg-emerald-100/70 border border-emerald-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
                             <span class="text-lg animate-bounce drop-shadow">🍕🏆</span>
@@ -277,7 +275,7 @@
 
         </div>
 
-        <!-- SCREEN 3: LAYAR KEMENANGAN (Selebrasi Kekinian & Megah) -->
+        <!-- SCREEN 3: LAYAR KEMENANGAN -->
         <div id="screen-victory" class="p-6 text-center space-y-4 hidden relative overflow-hidden my-auto bg-gradient-to-b from-amber-50/50 to-orange-100/50">
             <!-- Kontainer Efek Konfeti Mewah -->
             <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden z-10"></div>
@@ -512,7 +510,6 @@
                 document.getElementById('p3-height').innerText = playerData.p3.position + " M";
             }
 
-            // Skala maksimal ditingkatkan agar karakter butuh 10 soal penuh untuk capai puncak
             let p1Percent = Math.min((playerData.p1.position / maxHeight) * 85, 85);
             let p2Percent = Math.min((playerData.p2.position / maxHeight) * 85, 85);
             let p3Percent = Math.min((playerData.p3.position / maxHeight) * 85, 85);
