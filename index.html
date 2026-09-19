@@ -44,7 +44,7 @@
         }
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-8px); }
         }
         .animate-float {
             animation: float 2.5s ease-in-out infinite;
@@ -155,24 +155,48 @@
             </div>
         </div>
 
-        <!-- SCREEN 1.5: LAYAR PERSIAPAN & TOMBOL READY (HITUNG MUNDUR 3, 2, 1, GO) -->
-        <div id="screen-ready" class="p-6 text-center space-y-6 hidden relative overflow-hidden my-auto bg-slate-900/90 text-white flex flex-col items-center justify-center absolute inset-0 z-40">
-            <div class="space-y-3 max-w-md w-full bg-slate-800/90 p-8 rounded-3xl border-4 border-amber-400 shadow-2xl backdrop-blur-md">
-                <div class="w-20 h-20 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-3xl shadow-lg animate-bounce">
+        <!-- SCREEN 1.5: LAYAR PERSIAPAN (ESTETIK GRADASI, KOTAK INFO DI ATAS, KARAKTER KIRI-TENGAH-KANAN) -->
+        <div id="screen-ready" class="p-4 sm:p-6 text-center hidden relative overflow-hidden my-auto bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900 text-white flex flex-col justify-between absolute inset-0 z-40">
+            
+            <!-- KOTAK INFO & TOMBOL READY DI ATAS -->
+            <div class="max-w-md w-full mx-auto bg-slate-900/80 p-5 rounded-3xl border-2 border-amber-400 shadow-2xl backdrop-blur-md space-y-3 mt-2">
+                <div class="w-12 h-12 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-xl shadow-lg animate-bounce">
                     🏁
                 </div>
-                <h3 class="font-black text-xl text-amber-300">Posisi Tim Siap!</h3>
-                <p id="ready-desc" class="text-xs text-slate-300">Pastikan semua pemain sudah berada di posisinya masing-masing (Merah, Biru, Hijau).</p>
+                <div>
+                    <h3 class="font-black text-base sm:text-lg text-amber-300">Posisi Tim Siap!</h3>
+                    <p id="ready-desc" class="text-[11px] text-slate-300 mt-0.5">Pastikan semua pemain berada di posisi masing-masing (Merah, Biru, Hijau).</p>
+                </div>
                 
                 <!-- TAMPILAN HITUNG MUNDUR -->
-                <div id="countdown-display" class="text-5xl font-black text-amber-400 py-3 hidden">3</div>
+                <div id="countdown-display" class="text-4xl font-black text-amber-400 py-1 hidden">3</div>
 
-                <div id="ready-btn-container" class="pt-2">
-                    <button onclick="startCountdown()" class="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-xl text-sm sm:text-base transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                <div id="ready-btn-container" class="pt-1">
+                    <button onclick="startCountdown()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-xl text-xs sm:text-sm transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
                         <i class="fa-solid fa-flag-checkered"></i> READY! (Mulai Hitung Mundur)
                     </button>
                 </div>
             </div>
+
+            <!-- KARAKTER TIM DI BAWAH (KIRI, TENGAH, KANAN) -->
+            <div class="grid grid-cols-3 gap-2 w-full max-w-2xl mx-auto px-4 items-end pb-4">
+                <!-- Karakter Kiri (Tim Merah) -->
+                <div class="flex flex-col items-center animate-float">
+                    <span class="text-[10px] font-extrabold bg-rose-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Merah</span>
+                    <img src="https://i.ibb.co.com/F4rM2r9m/siap-merah.png" alt="Siap Merah" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                </div>
+                <!-- Karakter Tengah (Tim Biru) -->
+                <div class="flex flex-col items-center animate-float" style="animation-delay: 0.3s;">
+                    <span class="text-[10px] font-extrabold bg-blue-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Biru</span>
+                    <img src="https://i.ibb.co.com/jvsP5Vmq/siap-biru.png" alt="Siap Biru" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                </div>
+                <!-- Karakter Kanan (Tim Hijau) -->
+                <div class="flex flex-col items-center animate-float" style="animation-delay: 0.6s;">
+                    <span class="text-[10px] font-extrabold bg-emerald-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Hijau</span>
+                    <img src="https://i.ibb.co.com/9kn3YtDq/siap-hijau.png" alt="Siap Hijau" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                </div>
+            </div>
+
         </div>
 
         <!-- MODAL / POPUP PANDUAN GAME -->
@@ -547,7 +571,6 @@
             return arr;
         }
 
-        // TRANSISI KE LAYAR READY
         function goToReadyScreen() {
             const music = document.getElementById('bg-music');
             const icon = document.getElementById('music-icon');
@@ -559,12 +582,11 @@
             document.getElementById('screen-menu').classList.add('hidden');
             document.getElementById('screen-ready').classList.remove('hidden');
 
-            // Reset tampilan hitung mundur
             document.getElementById('countdown-display').classList.add('hidden');
             document.getElementById('ready-btn-container').style.display = 'block';
+            document.getElementById('ready-desc').innerText = "Pastikan semua pemain berada di posisi masing-masing (Merah, Biru, Hijau).";
         }
 
-        // FUNGSI HITUNG MUNDUR 3, 2, 1, GO
         function startCountdown() {
             const btnContainer = document.getElementById('ready-btn-container');
             const countdownEl = document.getElementById('countdown-display');
@@ -576,14 +598,14 @@
 
             let count = 3;
             countdownEl.innerText = count;
-            countdownEl.className = "text-6xl font-black text-amber-400 py-3 animate-countdown";
+            countdownEl.className = "text-5xl font-black text-amber-400 py-1 animate-countdown";
 
             let timer = setInterval(() => {
                 count--;
                 if (count > 0) {
                     countdownEl.innerText = count;
                     countdownEl.classList.remove('animate-countdown');
-                    void countdownEl.offsetWidth; // Trigger reflow animation
+                    void countdownEl.offsetWidth;
                     countdownEl.classList.add('animate-countdown');
                 } else if (count === 0) {
                     countdownEl.innerText = "GO! 🚀";
