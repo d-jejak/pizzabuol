@@ -59,6 +59,9 @@
 </head>
 <body class="p-2 sm:p-4 text-slate-800">
 
+    <!-- Audio Latar Belakang Lokal (audio-gamifikasi.mp3) -->
+    <audio id="bg-music" src="audio-gamifikasi.mp3" loop preload="auto"></audio>
+
     <div id="game-container" class="max-w-4xl w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-4 border-amber-400 overflow-hidden flex flex-col relative mx-auto">
         
         <!-- Tombol Kontrol Musik Melayang di Pojok Kanan Atas Header -->
@@ -341,67 +344,19 @@
         const maxHeight = 100; 
         const totalQuestions = 10;
 
-        // --- SISTEM WEB AUDIO SYNTHESIZER (TANPA FILE EXTERNAL) ---
-        let audioCtx = null;
-        let isMusicPlaying = false;
-        let musicInterval = null;
-
+        // --- KONTROL MUSIK LOKAL ---
         function toggleMusic() {
+            const music = document.getElementById('bg-music');
             const icon = document.getElementById('music-icon');
-            if (isMusicPlaying) {
-                stopBGM();
-                icon.className = "fa-solid fa-volume-xmark";
-                isMusicPlaying = false;
+            
+            if (music.paused) {
+                music.volume = 0.5;
+                music.play().then(() => {
+                    icon.className = "fa-solid fa-volume-high";
+                }).catch(e => console.log("Gagal memutar audio:", e));
             } else {
-                startBGM();
-                icon.className = "fa-solid fa-volume-high";
-                isMusicPlaying = true;
-            }
-        }
-
-        function startBGM() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-
-            // Melodi latar ceria (Chords: C - Am - F - G)
-            const notes = [261.63, 329.63, 392.00, 440.00, 523.25, 392.00, 329.63, 293.66];
-            let step = 0;
-
-            if (musicInterval) clearInterval(musicInterval);
-
-            musicInterval = setInterval(() => {
-                if (!isMusicPlaying || !audioCtx) return;
-                try {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(notes[step], audioCtx.currentTime);
-
-                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.4);
-
-                    step = (step + 1) % notes.length;
-                } catch(e) {
-                    console.log(e);
-                }
-            }, 300);
-        }
-
-        function stopBGM() {
-            if (musicInterval) {
-                clearInterval(musicInterval);
-                musicInterval = null;
+                music.pause();
+                icon.className = "fa-solid fa-volume-xmark";
             }
         }
 
@@ -417,12 +372,13 @@
         }
 
         function startGame() {
-            // Nyalakan musik otomatis saat game dimulai
-            if (!isMusicPlaying) {
-                startBGM();
-                document.getElementById('music-icon').className = "fa-solid fa-volume-high";
-                isMusicPlaying = true;
-            }
+            // Otomatis nyalakan musik saat game dimulai
+            const music = document.getElementById('bg-music');
+            const icon = document.getElementById('music-icon');
+            music.volume = 0.5;
+            music.play().then(() => {
+                icon.className = "fa-solid fa-volume-high";
+            }).catch(e => console.log("Autoplay dibatasi browser"));
 
             activeQuiz = shuffle([...quizBank]).slice(0, totalQuestions);
             currentQIndex = 0;
