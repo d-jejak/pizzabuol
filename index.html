@@ -67,6 +67,13 @@
         .animate-slip {
             animation: slip 0.3s ease-in-out;
         }
+        @keyframes crying {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(4px) scale(0.95); }
+        }
+        .animate-crying {
+            animation: crying 0.8s ease-in-out infinite;
+        }
         @keyframes confettiFall {
             0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 1; }
             100% { transform: translateY(105vh) rotate(1080deg) scale(1.2); opacity: 0; }
@@ -98,7 +105,7 @@
                 <i class="fa-solid fa-flag-checkered mr-1"></i> Panjat Pinang Edukasi
             </div>
             <h1 class="text-sm sm:text-lg font-black tracking-wide drop-shadow-md">🌴🍕 Operasi Penyelamatan : Pizza Buol</h1>
-            <p class="text-[9px] sm:text-[11px] text-amber-100 font-medium mt-0.5">Soal Mandiri Acak — Siapa Capai Puncak 100M Duluan Juaranya!</p>
+            <p class="text-[9px] sm:text-[11px] text-amber-100 font-medium mt-0.5">Awas Salah 3 Kali = Game Over! Capai Puncak 100M Juaranya!</p>
         </header>
 
         <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN -->
@@ -157,8 +164,9 @@
                 <div class="space-y-2.5 text-xs text-slate-600 leading-relaxed">
                     <p>🌴 <strong>Tentang Game:</strong> Lomba panjat pinang edukasi budaya dan kuliner Kabupaten Buol (Misi Lyabulyo / Pizza Buol).</p>
                     <p>🎯 <strong>Tujuan:</strong> Jawab benar 10 pertanyaan untuk mencapai puncak ketinggian 100 Meter dan raih kemenangan.</p>
+                    <p>❌ <strong>Batas Kesalahan:</strong> Jika salah menjawab hingga <strong>3 kali</strong>, maka <strong>Game Over</strong>!</p>
                     <p>🛡️ <strong>Anti-Contek:</strong> Setiap pemain mendapatkan bank soal dan pengacakan opsi jawaban yang berbeda secara mandiri.</p>
-                    <p>🚀 <strong>Mekanisme:</strong> Jawab benar naik +10 Meter, jawab salah terpeleset turun -5 Meter.</p>
+                    <p>🚀 <strong>Mekanisme:</strong> Jawab benar naik +10 Meter, jawab salah terpeleset turun -5 Meter & kehilangan 1 nyawa.</p>
                 </div>
                 <div class="pt-2 text-center">
                     <button onclick="tutupModalPanduan()" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs shadow-md transition cursor-pointer">
@@ -178,16 +186,19 @@
                     <div class="flex justify-between items-center bg-rose-100/80 px-2.5 py-1 rounded-lg border border-rose-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-rose-300 overflow-hidden shadow-xs flex items-center justify-center">
-                                <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Pria" class="w-full h-full object-contain">
+                                <img src="https://i.ibb.co.com/2Y8KfCq3/player-merah.png" alt="Pria" class="w-full h-full object-contain">
                             </div>
                             <div>
                                 <span class="text-[8px] font-extrabold text-rose-700 uppercase tracking-wider block">👤 Player 1</span>
                                 <h4 class="font-black text-rose-900 text-xs">Tim Merah</h4>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <span id="p1-height" class="text-xs sm:text-sm font-black text-rose-800">0 M</span>
-                            <span class="text-[8px] text-rose-500 block font-bold">Ketinggian</span>
+                        <div class="flex items-center gap-3">
+                            <div id="p1-lives" class="text-xs tracking-tight" title="Kesempatan Salah">❤️❤️❤️</div>
+                            <div class="text-right">
+                                <span id="p1-height" class="text-xs sm:text-sm font-black text-rose-800">0 M</span>
+                                <span class="text-[8px] text-rose-500 block font-bold">Ketinggian</span>
+                            </div>
                         </div>
                     </div>
 
@@ -196,14 +207,14 @@
                         <p id="p1-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P1 (Hanya Icon Piala di Puncak) -->
+                    <!-- VISUAL TIANG PINANG P1 -->
                     <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
                             <span class="text-xl animate-bounce drop-shadow">🏆</span>
                         </div>
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
                             <div id="p1-climber" class="absolute left-1/2 -translate-x-[65%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
-                                <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Karakter Pria" class="w-full h-full object-contain filter drop-shadow-md">
+                                <img src="https://i.ibb.co.com/2Y8KfCq3/player-merah.png" alt="Karakter Pria" class="w-full h-full object-contain filter drop-shadow-md">
                             </div>
                         </div>
                     </div>
@@ -217,16 +228,19 @@
                     <div class="flex justify-between items-center bg-blue-100/80 px-2.5 py-1 rounded-lg border border-blue-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-blue-300 overflow-hidden shadow-xs flex items-center justify-center">
-                                <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Wanita" class="w-full h-full object-contain">
+                                <img src="https://i.ibb.co.com/dsYFGYCP/player-biru.png" alt="Wanita" class="w-full h-full object-contain">
                             </div>
                             <div>
                                 <span class="text-[8px] font-extrabold text-blue-700 uppercase tracking-wider block">👤 Player 2</span>
                                 <h4 class="font-black text-blue-900 text-xs">Tim Biru</h4>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <span id="p2-height" class="text-xs sm:text-sm font-black text-blue-800">0 M</span>
-                            <span class="text-[8px] text-blue-500 block font-bold">Ketinggian</span>
+                        <div class="flex items-center gap-3">
+                            <div id="p2-lives" class="text-xs tracking-tight" title="Kesempatan Salah">❤️❤️❤️</div>
+                            <div class="text-right">
+                                <span id="p2-height" class="text-xs sm:text-sm font-black text-blue-800">0 M</span>
+                                <span class="text-[8px] text-blue-500 block font-bold">Ketinggian</span>
+                            </div>
                         </div>
                     </div>
 
@@ -235,14 +249,14 @@
                         <p id="p2-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P2 (Hanya Icon Piala di Puncak) -->
+                    <!-- VISUAL TIANG PINANG P2 -->
                     <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
                             <span class="text-xl animate-bounce drop-shadow">🏆</span>
                         </div>
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
                             <div id="p2-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
-                                <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Karakter Wanita" class="w-full h-full object-contain filter drop-shadow-md">
+                                <img src="https://i.ibb.co.com/dsYFGYCP/player-biru.png" alt="Karakter Wanita" class="w-full h-full object-contain filter drop-shadow-md">
                             </div>
                         </div>
                     </div>
@@ -256,16 +270,19 @@
                     <div class="flex justify-between items-center bg-emerald-100/80 px-2.5 py-1 rounded-lg border border-emerald-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-emerald-300 overflow-hidden shadow-xs flex items-center justify-center">
-                                <img src="https://i.ibb.co.com/q3sp1zdL/hijau.png" alt="Hijau" class="w-full h-full object-contain">
+                                <img src="https://i.ibb.co.com/Q7X3nc3d/player-hijau.png" alt="Hijau" class="w-full h-full object-contain">
                             </div>
                             <div>
                                 <span class="text-[8px] font-extrabold text-emerald-700 uppercase tracking-wider block">👤 Player 3</span>
                                 <h4 class="font-black text-emerald-900 text-xs">Tim Hijau</h4>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <span id="p3-height" class="text-xs sm:text-sm font-black text-emerald-800">0 M</span>
-                            <span class="text-[8px] text-emerald-500 block font-bold">Ketinggian</span>
+                        <div class="flex items-center gap-3">
+                            <div id="p3-lives" class="text-xs tracking-tight" title="Kesempatan Salah">❤️❤️❤️</div>
+                            <div class="text-right">
+                                <span id="p3-height" class="text-xs sm:text-sm font-black text-emerald-800">0 M</span>
+                                <span class="text-[8px] text-emerald-500 block font-bold">Ketinggian</span>
+                            </div>
                         </div>
                     </div>
 
@@ -274,14 +291,14 @@
                         <p id="p3-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P3 (Hanya Icon Piala di Puncak) -->
+                    <!-- VISUAL TIANG PINANG P3 -->
                     <div class="bg-emerald-100/70 border border-emerald-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
                             <span class="text-xl animate-bounce drop-shadow">🏆</span>
                         </div>
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
                             <div id="p3-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
-                                <img src="https://i.ibb.co.com/q3sp1zdL/hijau.png" alt="Karakter Hijau" class="w-full h-full object-contain filter drop-shadow-md">
+                                <img src="https://i.ibb.co.com/Q7X3nc3d/player-hijau.png" alt="Karakter Hijau" class="w-full h-full object-contain filter drop-shadow-md">
                             </div>
                         </div>
                     </div>
@@ -321,6 +338,24 @@
                 <div class="pt-2">
                     <button onclick="resetGame()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
                         <i class="fa-solid fa-rotate-right"></i> Mainkan Lomba Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 4: LAYAR GAME OVER (DENGAN KARAKTER MENANGIS) -->
+        <div id="screen-gameover" class="p-6 text-center space-y-4 hidden relative overflow-hidden my-auto bg-gradient-to-b from-rose-50 to-slate-100">
+            <div class="relative z-20 space-y-3">
+                <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center shadow-xl animate-crying border-4 border-rose-300 bg-white p-2">
+                    <img id="gameover-sad-img" src="https://i.ibb.co.com/HfHG9fcN/sad-merah.png" alt="Karakter Menangis" class="w-full h-full object-contain">
+                </div>
+                <div class="space-y-1">
+                    <h2 id="gameover-title" class="font-black text-rose-700 text-lg sm:text-2xl drop-shadow-sm">GAME OVER!</h2>
+                    <p id="gameover-desc" class="text-xs sm:text-sm text-slate-600 font-medium">Sayang sekali, kesalahan Anda sudah mencapai 3 kali!</p>
+                </div>
+                <div class="pt-2">
+                    <button onclick="resetGame()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-rose-600 to-red-700 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i> Coba Lagi
                     </button>
                 </div>
             </div>
@@ -435,10 +470,23 @@
         let selectedPlayerCount = 1;
         let maxHeight = 100; // 100 Meter (10 soal benar)
 
+        // Status data mandiri per player dengan tambahan hitungan kesalahan (strikes) max 3
         let playerData = {
-            p1: { position: 0, quiz: [], qIndex: 0 },
-            p2: { position: 0, quiz: [], qIndex: 0 },
-            p3: { position: 0, quiz: [], qIndex: 0 }
+            p1: { position: 0, strikes: 0, quiz: [], qIndex: 0 },
+            p2: { position: 0, strikes: 0, quiz: [], qIndex: 0 },
+            p3: { position: 0, strikes: 0, quiz: [], qIndex: 0 }
+        };
+
+        const sadImages = {
+            p1: "https://i.ibb.co.com/HfHG9fcN/sad-merah.png",
+            p2: "https://i.ibb.co.com/S73f0hn6/sad-biru.png",
+            p3: "https://i.ibb.co.com/qFpgqxs9/sad-hijau.png"
+        };
+
+        const teamNames = {
+            p1: "Tim Merah (Player 1)",
+            p2: "Tim Biru (Player 2)",
+            p3: "Tim Hijau (Player 3)"
         };
 
         function setPlayerCount(count) {
@@ -514,12 +562,13 @@
                 gridContainer.className = "grid grid-cols-1 md:grid-cols-3 gap-3";
             }
 
-            playerData.p1 = { position: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
-            playerData.p2 = { position: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
-            playerData.p3 = { position: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
+            playerData.p1 = { position: 0, strikes: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
+            playerData.p2 = { position: 0, strikes: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
+            playerData.p3 = { position: 0, strikes: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
 
             document.getElementById('screen-menu').classList.add('hidden');
             document.getElementById('screen-victory').classList.add('hidden');
+            document.getElementById('screen-gameover').classList.add('hidden');
             document.getElementById('screen-game').classList.remove('hidden');
 
             loadPlayerQuestion('p1');
@@ -527,6 +576,22 @@
             if (selectedPlayerCount === 3) loadPlayerQuestion('p3');
 
             updatePositionsUI();
+            updateLivesUI();
+        }
+
+        function updateLivesUI() {
+            for (let i = 1; i <= 3; i++) {
+                let pKey = 'p' + i;
+                let livesEl = document.getElementById(`${pKey}-lives`);
+                if (livesEl) {
+                    let remainingLives = 3 - playerData[pKey].strikes;
+                    let hearts = '';
+                    for (let h = 0; h < 3; h++) {
+                        hearts += (h < remainingLives) ? '❤️' : '🖤';
+                    }
+                    livesEl.innerText = hearts;
+                }
+            }
         }
 
         function updatePositionsUI() {
@@ -536,7 +601,6 @@
                 document.getElementById('p3-height').innerText = playerData.p3.position + " M";
             }
 
-            // Skala disesuaikan presisi 78% agar saat 100M (10 soal benar) posisi karakter tepat di ujung atas tiang piala
             let p1Percent = Math.min((playerData.p1.position / maxHeight) * 78, 78);
             let p2Percent = Math.min((playerData.p2.position / maxHeight) * 78, 78);
             let p3Percent = Math.min((playerData.p3.position / maxHeight) * 78, 78);
@@ -563,7 +627,6 @@
             const container = document.getElementById(`${player}-options`);
             container.innerHTML = '';
 
-            // PENGACAKAN OPSI JAWABAN (ROTASI ACAK) AGAR TIDAK MENUMPUK DI A/B
             let optionsWithStatus = q.options.map((opt, idx) => {
                 return {
                     text: opt,
@@ -607,19 +670,29 @@
                 climberEl.classList.add('animate-climb');
                 setTimeout(() => climberEl.classList.remove('animate-climb'), 400);
             } else {
+                // Jawaban Salah: Tambah hitung salah (strikes) & turun posisi
+                pData.strikes++;
                 pData.position = Math.max(pData.position - 5, 0);
 
                 btnElement.className = "w-full text-left p-1.5 sm:p-2 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-900 font-bold text-[10px] sm:text-[11px] flex items-center justify-between";
                 btnElement.innerHTML += ` <i class="fa-solid fa-circle-xmark text-rose-600"></i>`;
                 allBtns[correctAnswer].className = "w-full text-left p-1.5 sm:p-2 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-[10px] sm:text-[11px] flex items-center justify-between";
-                statusEl.innerHTML = `<span class="text-rose-700 font-extrabold">💦 Terpeleset -5 M!</span>`;
+                statusEl.innerHTML = `<span class="text-rose-700 font-extrabold">💦 Salah (${pData.strikes}/3)! Terpeleset -5 M</span>`;
 
                 climberEl.classList.add('animate-slip');
                 setTimeout(() => climberEl.classList.remove('animate-slip'), 300);
             }
 
             updatePositionsUI();
+            updateLivesUI();
 
+            // Cek kondisi Game Over (Salah 3 kali)
+            if (pData.strikes >= 3) {
+                setTimeout(() => showGameOverScreen(player), 1000);
+                return;
+            }
+
+            // Cek kondisi Pemenang (Mencapai Puncak 100 M)
             if (pData.position >= maxHeight) {
                 setTimeout(() => showVictoryScreen(player), 1000);
                 return;
@@ -629,6 +702,15 @@
                 pData.qIndex++;
                 loadPlayerQuestion(player);
             }, 1500);
+        }
+
+        function showGameOverScreen(losingPlayer) {
+            document.getElementById('screen-game').classList.add('hidden');
+            document.getElementById('screen-gameover').classList.remove('hidden');
+
+            document.getElementById('gameover-sad-img').src = sadImages[losingPlayer];
+            document.getElementById('gameover-title').innerText = `${teamNames[losingPlayer]} - GAME OVER!`;
+            document.getElementById('gameover-desc').innerText = `Sayang sekali! Anda telah salah menjawab sebanyak 3 kali dan gagal menyelamatkan Pizza Buol.`;
         }
 
         function showVictoryScreen(winningPlayer) {
@@ -690,6 +772,7 @@
 
         function resetGame() {
             document.getElementById('screen-victory').classList.add('hidden');
+            document.getElementById('screen-gameover').classList.add('hidden');
             document.getElementById('screen-menu').classList.remove('hidden');
         }
     </script>
