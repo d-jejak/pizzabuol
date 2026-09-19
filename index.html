@@ -101,7 +101,7 @@
             <p class="text-[9px] sm:text-[11px] text-amber-100 font-medium mt-0.5">Soal Mandiri Acak — Siapa Capai Puncak 100M Duluan Juaranya!</p>
         </header>
 
-        <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN (Poster Format Portrait & Lapang) -->
+        <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN -->
         <div id="screen-menu" class="p-4 sm:p-8 text-center space-y-4 my-auto overflow-y-auto">
             
             <!-- GAMBAR POSTER FORMAT PORTRAIT UTUH -->
@@ -112,7 +112,7 @@
             <div class="space-y-1.5 max-w-md mx-auto pt-1">
                 <h2 class="font-black text-slate-900 text-base sm:text-lg">Operasi Penyelamatan Lyabulyo : Pizza Buol!</h2>
                 
-                <!-- Tombol Panduan & Peraturan (Agar Tidak Sesak) -->
+                <!-- Tombol Panduan & Peraturan -->
                 <div class="pt-1">
                     <button type="button" onclick="bukaModalPanduan()" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-extrabold rounded-xl text-xs transition shadow-2xs inline-flex items-center gap-1.5 cursor-pointer">
                         <i class="fa-solid fa-circle-question text-amber-600"></i> Panduan & Peraturan Game
@@ -156,8 +156,8 @@
                 </div>
                 <div class="space-y-2.5 text-xs text-slate-600 leading-relaxed">
                     <p>🌴 <strong>Tentang Game:</strong> Lomba panjat pinang edukasi budaya dan kuliner Kabupaten Buol (Misi Lyabulyo / Pizza Buol).</p>
-                    <p>🎯 <strong>Tujuan:</strong> Jawab benar 10 pertanyaan berturut-turut untuk mencapai puncak ketinggian 100 Meter dan raih kemenangan.</p>
-                    <p>🛡️ <strong>Anti-Contek:</strong> Setiap pemain mendapatkan bank soal acak yang berbeda secara mandiri di layarnya masing-masing.</p>
+                    <p>🎯 <strong>Tujuan:</strong> Jawab benar 10 pertanyaan untuk mencapai puncak ketinggian 100 Meter dan raih kemenangan.</p>
+                    <p>🛡️ <strong>Anti-Contek:</strong> Setiap pemain mendapatkan bank soal dan pengacakan opsi jawaban yang berbeda secara mandiri.</p>
                     <p>🚀 <strong>Mekanisme:</strong> Jawab benar naik +10 Meter, jawab salah terpeleset turun -5 Meter.</p>
                 </div>
                 <div class="pt-2 text-center">
@@ -168,10 +168,9 @@
             </div>
         </div>
 
-        <!-- SCREEN 2: ARENA LOMBA PANJANG PINANG (SOAL MANDIRI PER PEMAIN) -->
+        <!-- SCREEN 2: ARENA LOMBA PANJANG PINANG -->
         <div id="screen-game" class="p-2 sm:p-3 space-y-2 hidden flex-grow overflow-y-auto">
             
-            <!-- AREA GRID DINAMIS (TIAP PEMAIN PUNYA SOAL & TOMBOL PILIHAN SENDIRI) -->
             <div id="players-grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 h-full">
                 
                 <!-- PLAYER 1 PANEL (MERAH) -->
@@ -192,16 +191,15 @@
                         </div>
                     </div>
 
-                    <!-- SOAL MANDIRI P1 -->
                     <div class="bg-white p-2 rounded-lg border border-rose-200 shadow-inner">
                         <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p1-q-progress">Soal ke-1</div>
                         <p id="p1-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P1 -->
+                    <!-- VISUAL TIANG PINANG P1 (Hanya Icon Piala di Puncak) -->
                     <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
-                            <span class="text-lg animate-bounce drop-shadow">🍕🏆</span>
+                            <span class="text-xl animate-bounce drop-shadow">🏆</span>
                         </div>
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
                             <div id="p1-climber" class="absolute left-1/2 -translate-x-[65%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
@@ -210,7 +208,6 @@
                         </div>
                     </div>
 
-                    <!-- PILIHAN JAWABAN P1 -->
                     <div id="p1-options" class="space-y-1"></div>
                     <div id="p1-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-rose-800">Siap memanjat...</div>
                 </div>
@@ -233,16 +230,15 @@
                         </div>
                     </div>
 
-                    <!-- SOAL MANDIRI P2 -->
                     <div class="bg-white p-2 rounded-lg border border-blue-200 shadow-inner">
                         <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p2-q-progress">Soal ke-1</div>
                         <p id="p2-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P2 -->
+                    <!-- VISUAL TIANG PINANG P2 (Hanya Icon Piala di Puncak) -->
                     <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
-                            <span class="text-lg animate-bounce drop-shadow">🍕🏆</span>
+                            <span class="text-xl animate-bounce drop-shadow">🏆</span>
                         </div>
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
                             <div id="p2-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
@@ -251,7 +247,6 @@
                         </div>
                     </div>
 
-                    <!-- PILIHAN JAWABAN P2 -->
                     <div id="p2-options" class="space-y-1"></div>
                     <div id="p2-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-blue-800">Siap memanjat...</div>
                 </div>
@@ -274,16 +269,15 @@
                         </div>
                     </div>
 
-                    <!-- SOAL MANDIRI P3 -->
                     <div class="bg-white p-2 rounded-lg border border-emerald-200 shadow-inner">
                         <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p3-q-progress">Soal ke-1</div>
                         <p id="p3-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P3 -->
+                    <!-- VISUAL TIANG PINANG P3 (Hanya Icon Piala di Puncak) -->
                     <div class="bg-emerald-100/70 border border-emerald-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
                         <div class="absolute top-1 left-0 right-0 text-center z-20">
-                            <span class="text-lg animate-bounce drop-shadow">🍕🏆</span>
+                            <span class="text-xl animate-bounce drop-shadow">🏆</span>
                         </div>
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
                             <div id="p3-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
@@ -292,7 +286,6 @@
                         </div>
                     </div>
 
-                    <!-- PILIHAN JAWABAN P3 -->
                     <div id="p3-options" class="space-y-1"></div>
                     <div id="p3-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-emerald-800">Siap memanjat...</div>
                 </div>
@@ -303,7 +296,6 @@
 
         <!-- SCREEN 3: LAYAR KEMENANGAN -->
         <div id="screen-victory" class="p-6 text-center space-y-4 hidden relative overflow-hidden my-auto bg-gradient-to-b from-amber-50/50 to-orange-100/50">
-            <!-- Kontainer Efek Konfeti Mewah -->
             <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden z-10"></div>
 
             <div class="relative z-20 space-y-3">
@@ -544,9 +536,10 @@
                 document.getElementById('p3-height').innerText = playerData.p3.position + " M";
             }
 
-            let p1Percent = Math.min((playerData.p1.position / maxHeight) * 85, 85);
-            let p2Percent = Math.min((playerData.p2.position / maxHeight) * 85, 85);
-            let p3Percent = Math.min((playerData.p3.position / maxHeight) * 85, 85);
+            // Skala disesuaikan presisi 78% agar saat 100M (10 soal benar) posisi karakter tepat di ujung atas tiang piala
+            let p1Percent = Math.min((playerData.p1.position / maxHeight) * 78, 78);
+            let p2Percent = Math.min((playerData.p2.position / maxHeight) * 78, 78);
+            let p3Percent = Math.min((playerData.p3.position / maxHeight) * 78, 78);
 
             document.getElementById('p1-climber').style.bottom = p1Percent + "%";
             document.getElementById('p2-climber').style.bottom = p2Percent + "%";
@@ -557,13 +550,11 @@
 
         function loadPlayerQuestion(player) {
             const pData = playerData[player];
-            // Jika semua soal sudah habis, acak ulang bank soal dan mulai dari awal
             if (pData.qIndex >= pData.quiz.length) {
                 pData.quiz = shuffle([...quizBank]);
                 pData.qIndex = 0;
             }
 
-            // Ambil data soal saat ini
             const q = pData.quiz[pData.qIndex];
             document.getElementById(`${player}-q-progress`).innerText = `Soal mandiri ke-${pData.qIndex + 1}`;
             document.getElementById(`${player}-question-text`).innerText = q.question;
@@ -572,35 +563,27 @@
             const container = document.getElementById(`${player}-options`);
             container.innerHTML = '';
 
-            // --- BAGIAN PENTING: PENGACAKAN OPSI ---
-            
-            // 1. Buat array objek opsi agar kita bisa melacak mana jawaban yang benar
-            //    setelah diacak.
+            // PENGACAKAN OPSI JAWABAN (ROTASI ACAK) AGAR TIDAK MENUMPUK DI A/B
             let optionsWithStatus = q.options.map((opt, idx) => {
                 return {
                     text: opt,
-                    isCorrect: (idx === q.answer) // Tandai mana yang jawaban benar asli
+                    isCorrect: (idx === q.answer)
                 };
             });
 
-            // 2. Gunakan fungsi shuffle yang sudah ada untuk mengacak array opsi
             let shuffledOptions = shuffle(optionsWithStatus);
 
-            // 3. Simpan indeks jawaban benar yang BARU setelah diacak
             let newCorrectIndex = -1;
             shuffledOptions.forEach((opt, idx) => {
                 if (opt.isCorrect) {
-                    newCorrectIndex = idx; // Simpan posisi baru jawaban benar
+                    newCorrectIndex = idx;
                 }
             });
 
-            // 4. Tampilkan tombol pilihan berdasarkan urutan yang baru diacak
             shuffledOptions.forEach((opt, idx) => {
                 const btn = document.createElement('button');
                 btn.className = `w-full text-left p-1.5 sm:p-2 rounded-xl border border-slate-200 bg-white hover:bg-amber-50 text-slate-700 font-semibold text-[10px] sm:text-[11px] transition shadow-2xs cursor-pointer flex items-center justify-between`;
                 btn.innerHTML = `<span>${opt.text}</span>`;
-                
-                // PENTING: Kirim indeks BARU (newCorrectIndex) ke fungsi handlePlayerAnswer
                 btn.onclick = () => handlePlayerAnswer(player, idx, btn, newCorrectIndex);
                 container.appendChild(btn);
             });
