@@ -35,8 +35,8 @@
         }
         @media (min-width: 768px) {
             #game-container {
-                max-width: 1100px !important;
-                height: 92vh !important;
+                max-width: 1150px !important;
+                height: 94vh !important;
                 border-radius: 1.5rem !important;
                 border: 4px solid #f59e0b !important;
             }
@@ -91,12 +91,12 @@
         </button>
 
         <!-- HEADER GAME -->
-        <header class="bg-gradient-to-r from-amber-500 to-orange-600 p-3 sm:p-4 text-white text-center shadow-md relative flex-shrink-0">
-            <div class="absolute top-2.5 left-3 bg-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-extrabold tracking-wider uppercase backdrop-blur-sm">
+        <header class="bg-gradient-to-r from-amber-500 to-orange-600 p-2.5 sm:p-3 text-white text-center shadow-md relative flex-shrink-0">
+            <div class="absolute top-2 left-3 bg-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-extrabold tracking-wider uppercase backdrop-blur-sm">
                 <i class="fa-solid fa-flag-checkered mr-1"></i> Panjat Pinang Edukasi
             </div>
-            <h1 class="text-base sm:text-xl font-black tracking-wide drop-shadow-md">🌴🍕 Panjat Pinang: Pizza Buol</h1>
-            <p class="text-[10px] sm:text-xs text-amber-100 font-medium mt-0.5">Beradu Cepat Menjawab & Memanjat Tiang Menuju Puncak!</p>
+            <h1 class="text-sm sm:text-lg font-black tracking-wide drop-shadow-md">🌴🍕 Panjat Pinang: Pizza Buol</h1>
+            <p class="text-[9px] sm:text-[11px] text-amber-100 font-medium mt-0.5">Beradu Cepat Menjawab & Memanjat Tiang Menuju Puncak!</p>
         </header>
 
         <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN -->
@@ -138,25 +138,25 @@
         </div>
 
         <!-- SCREEN 2: ARENA LOMBA PANJANG PINANG (DINAMIS 1, 2, ATAU 3 PEMAIN DALAM 1 LAYAR) -->
-        <div id="screen-game" class="p-3 sm:p-4 space-y-3 hidden flex-grow overflow-y-auto">
+        <div id="screen-game" class="p-2 sm:p-3 space-y-2 hidden flex-grow overflow-y-auto">
             
             <!-- KOTAK SOAL UTAMA DI ATAS -->
-            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-1.5 shadow-inner text-center">
+            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 space-y-1 shadow-inner text-center">
                 <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 px-1">
                     <span id="question-progress">Pertanyaan 1 dari 10</span>
                     <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-md">Topik: Budaya & Kuliner Buol</span>
                 </div>
-                <h3 id="question-text" class="font-bold text-slate-800 text-xs sm:text-sm min-h-[30px] flex items-center justify-center">
+                <h3 id="question-text" class="font-bold text-slate-800 text-xs sm:text-sm min-h-[28px] flex items-center justify-center">
                     Memuat pertanyaan panjat pinang...
                 </h3>
             </div>
 
             <!-- AREA GRID DINAMIS (DIATUR BERDASARKAN JUMLAH PEMAIN) -->
-            <div id="players-grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div id="players-grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                 
                 <!-- PLAYER 1 PANEL (MERAH) -->
-                <div id="p1-panel" class="bg-rose-50/90 border-2 border-rose-300 p-3 rounded-2xl space-y-2 shadow-sm relative flex flex-col justify-between">
-                    <div class="flex justify-between items-center bg-rose-100/80 px-3 py-1.5 rounded-xl border border-rose-200">
+                <div id="p1-panel" class="bg-rose-50/90 border-2 border-rose-300 p-2.5 rounded-xl space-y-2 shadow-sm relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center bg-rose-100/80 px-2.5 py-1 rounded-lg border border-rose-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-rose-300 overflow-hidden shadow-xs flex items-center justify-center">
                                 <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Pria" class="w-full h-full object-contain">
@@ -172,13 +172,13 @@
                         </div>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P1 -->
-                    <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-32 sm:h-44 relative overflow-hidden flex items-end justify-center pb-2">
+                    <!-- VISUAL TIANG PINANG P1 (DIPERPANJANG TINGGINYA) -->
+                    <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-44 sm:h-56 relative overflow-hidden flex items-end justify-center pb-2">
                         <div class="absolute top-2 left-0 right-0 text-center z-20">
                             <span class="text-xl animate-bounce drop-shadow">🍕🏆</span>
                         </div>
-                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-24 sm:h-32 rounded-sm relative shadow-inner overflow-visible">
-                            <div id="p1-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center z-30 drop-shadow-lg">
+                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-36 sm:h-48 rounded-sm relative shadow-inner overflow-visible">
+                            <div id="p1-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center z-30 drop-shadow-lg">
                                 <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Karakter Pria" class="w-full h-full object-contain filter drop-shadow-md">
                             </div>
                         </div>
@@ -186,12 +186,12 @@
 
                     <!-- PILIHAN JAWABAN P1 -->
                     <div id="p1-options" class="space-y-1"></div>
-                    <div id="p1-status" class="text-center text-[10px] font-bold py-0.5 min-h-[18px] text-rose-800">Bersiap memanjat...</div>
+                    <div id="p1-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-rose-800">Bersiap memanjat...</div>
                 </div>
 
                 <!-- PLAYER 2 PANEL (BIRU) -->
-                <div id="p2-panel" class="bg-blue-50/90 border-2 border-blue-300 p-3 rounded-2xl space-y-2 shadow-sm relative flex flex-col justify-between">
-                    <div class="flex justify-between items-center bg-blue-100/80 px-3 py-1.5 rounded-xl border border-blue-200">
+                <div id="p2-panel" class="bg-blue-50/90 border-2 border-blue-300 p-2.5 rounded-xl space-y-2 shadow-sm relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center bg-blue-100/80 px-2.5 py-1 rounded-lg border border-blue-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-blue-300 overflow-hidden shadow-xs flex items-center justify-center">
                                 <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Wanita" class="w-full h-full object-contain">
@@ -207,13 +207,13 @@
                         </div>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P2 -->
-                    <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-32 sm:h-44 relative overflow-hidden flex items-end justify-center pb-2">
+                    <!-- VISUAL TIANG PINANG P2 (DIPERPANJANG TINGGINYA) -->
+                    <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-44 sm:h-56 relative overflow-hidden flex items-end justify-center pb-2">
                         <div class="absolute top-2 left-0 right-0 text-center z-20">
                             <span class="text-xl animate-bounce drop-shadow">🍕🏆</span>
                         </div>
-                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-24 sm:h-32 rounded-sm relative shadow-inner overflow-visible">
-                            <div id="p2-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center z-30 drop-shadow-lg">
+                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-36 sm:h-48 rounded-sm relative shadow-inner overflow-visible">
+                            <div id="p2-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center z-30 drop-shadow-lg">
                                 <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Karakter Wanita" class="w-full h-full object-contain filter drop-shadow-md">
                             </div>
                         </div>
@@ -221,12 +221,12 @@
 
                     <!-- PILIHAN JAWABAN P2 -->
                     <div id="p2-options" class="space-y-1"></div>
-                    <div id="p2-status" class="text-center text-[10px] font-bold py-0.5 min-h-[18px] text-blue-800">Bersiap memanjat...</div>
+                    <div id="p2-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-blue-800">Bersiap memanjat...</div>
                 </div>
 
-                <!-- PLAYER 3 PANEL (HIJAU DENGAN KARAKTER BARU) -->
-                <div id="p3-panel" class="bg-emerald-50/90 border-2 border-emerald-300 p-3 rounded-2xl space-y-2 shadow-sm relative flex flex-col justify-between hidden">
-                    <div class="flex justify-between items-center bg-emerald-100/80 px-3 py-1.5 rounded-xl border border-emerald-200">
+                <!-- PLAYER 3 PANEL (HIJAU) -->
+                <div id="p3-panel" class="bg-emerald-50/90 border-2 border-emerald-300 p-2.5 rounded-xl space-y-2 shadow-sm relative flex flex-col justify-between hidden">
+                    <div class="flex justify-between items-center bg-emerald-100/80 px-2.5 py-1 rounded-lg border border-emerald-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-emerald-300 overflow-hidden shadow-xs flex items-center justify-center">
                                 <img src="https://i.ibb.co.com/q3sp1zdL/hijau.png" alt="Hijau" class="w-full h-full object-contain">
@@ -242,13 +242,13 @@
                         </div>
                     </div>
 
-                    <!-- VISUAL TIANG PINANG P3 -->
-                    <div class="bg-emerald-100/70 border border-emerald-200 rounded-xl h-32 sm:h-44 relative overflow-hidden flex items-end justify-center pb-2">
+                    <!-- VISUAL TIANG PINANG P3 (DIPERPANJANG TINGGINYA) -->
+                    <div class="bg-emerald-100/70 border border-emerald-200 rounded-xl h-44 sm:h-56 relative overflow-hidden flex items-end justify-center pb-2">
                         <div class="absolute top-2 left-0 right-0 text-center z-20">
                             <span class="text-xl animate-bounce drop-shadow">🍕🏆</span>
                         </div>
-                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-24 sm:h-32 rounded-sm relative shadow-inner overflow-visible">
-                            <div id="p3-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center z-30 drop-shadow-lg">
+                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-36 sm:h-48 rounded-sm relative shadow-inner overflow-visible">
+                            <div id="p3-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center z-30 drop-shadow-lg">
                                 <img src="https://i.ibb.co.com/q3sp1zdL/hijau.png" alt="Karakter Hijau" class="w-full h-full object-contain filter drop-shadow-md">
                             </div>
                         </div>
@@ -256,7 +256,7 @@
 
                     <!-- PILIHAN JAWABAN P3 -->
                     <div id="p3-options" class="space-y-1"></div>
-                    <div id="p3-status" class="text-center text-[10px] font-bold py-0.5 min-h-[18px] text-emerald-800">Bersiap memanjat...</div>
+                    <div id="p3-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-emerald-800">Bersiap memanjat...</div>
                 </div>
 
             </div>
