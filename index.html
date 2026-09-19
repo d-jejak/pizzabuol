@@ -180,7 +180,7 @@
 
             <!-- KARAKTER TIM DI BAWAH (DINAMIS SESUAI JUMLAH PEMAIN) -->
             <div id="ready-characters-container" class="flex justify-center items-end gap-6 w-full max-w-3xl mx-auto px-4 pb-6">
-                <!-- Diisi via JavaScript berdasarkan selectedPlayerCount -->
+                <!-- Diisi via JavaScript -->
             </div>
 
         </div>
@@ -387,6 +387,27 @@
     </div>
 
     <script>
+        // --- PRELOAD GAMBAR AGAR LANGSUNG MUNCUL SEMPURNA TANPA JEDA ---
+        const imageAssets = [
+            "https://i.ibb.co.com/8nXFmbT9/pizza-buol.jpg",
+            "https://i.ibb.co.com/F4rM2r9m/siap-merah.png",
+            "https://i.ibb.co.com/jvsP5Vmq/siap-biru.png",
+            "https://i.ibb.co.com/9kn3YtDq/siap-hijau.png",
+            "https://i.ibb.co.com/bqN3qpD/kalah-merah.png",
+            "https://i.ibb.co.com/9mdmSWYt/kalah-biru.png",
+            "https://i.ibb.co.com/DDqFct1R/kalah-hijau.png",
+            "https://i.ibb.co.com/21mvp52r/menang-merah.png",
+            "https://i.ibb.co.com/LX418GqC/menang-biru.png",
+            "https://i.ibb.co.com/vvJ5tg07/menang-hijau.png",
+            "https://i.ibb.co.com/yF9cKvHk/boit-merah.png",
+            "https://i.ibb.co.com/Q3n24SyW/boit-biru.png",
+            "https://i.ibb.co.com/fds396Vb/boit-hijau.png"
+        ];
+        imageAssets.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
         const quizBank = [
             {
                 question: "Lyabulyo atau yang dikenal sebagai Pizza Buol merupakan salah satu makanan tradisional yang menjadi bagian dari kekayaan kuliner daerah …",
@@ -563,7 +584,6 @@
             return arr;
         }
 
-        // RENDER KARAKTER DI LAYAR READY SESUAI JUMLAH PEMAIN
         function goToReadyScreen() {
             const music = document.getElementById('bg-music');
             const icon = document.getElementById('music-icon');
