@@ -99,7 +99,7 @@
     <!-- Audio Latar Belakang -->
     <audio id="bg-music" src="gamifikasi-audio.mp3" loop preload="auto"></audio>
 
-    <div id="game-container" class="bg-white/95 backdrop-blur-md shadow-2xl overflow-hidden flex flex-col relative mx-auto">
+    <div id="game-container" class="bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 shadow-2xl overflow-hidden flex flex-col relative mx-auto">
         
         <!-- Tombol Kontrol Musik Melayang -->
         <button onclick="toggleMusic()" id="music-btn" class="absolute top-12 sm:top-3 right-3 z-40 bg-white/30 hover:bg-white/50 text-white p-2 rounded-full text-xs transition backdrop-blur-sm flex items-center justify-center w-9 h-9 shadow cursor-pointer border border-white/40" title="Nyalakan/Matikan Musik">
@@ -107,7 +107,7 @@
         </button>
 
         <!-- HEADER GAME -->
-        <header class="bg-gradient-to-r from-amber-500 to-orange-600 pt-10 pb-3 px-3 sm:py-3 text-white text-center shadow-md relative flex-shrink-0">
+        <header class="bg-gradient-to-r from-amber-500 to-orange-600 pt-10 pb-3 px-3 sm:py-3 text-white text-center shadow-md relative flex-shrink-0 z-20">
             <div class="absolute top-3 left-3 bg-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-extrabold tracking-wider uppercase backdrop-blur-sm">
                 <i class="fa-solid fa-flag-checkered mr-1"></i> Panjat Pinang Edukasi
             </div>
@@ -116,33 +116,33 @@
         </header>
 
         <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN -->
-        <div id="screen-menu" class="p-4 sm:p-8 text-center space-y-4 my-auto overflow-y-auto">
+        <div id="screen-menu" class="p-4 sm:p-8 text-center space-y-4 my-auto overflow-y-auto z-20">
             
             <div class="w-40 sm:w-48 mx-auto rounded-2xl overflow-hidden shadow-xl border-4 border-amber-300 animate-float bg-slate-900 flex items-center justify-center">
                 <img src="https://i.ibb.co.com/8nXFmbT9/pizza-buol.jpg" alt="Poster Operasi Penyelamatan Pizza Buol" class="w-full h-full object-contain scale-110">
             </div>
 
             <div class="space-y-1.5 max-w-md mx-auto pt-1">
-                <h2 class="font-black text-slate-900 text-base sm:text-lg">Operasi Penyelamatan Lyabulyo : Pizza Buol!</h2>
+                <h2 class="font-black text-white text-base sm:text-lg drop-shadow">Operasi Penyelamatan Lyabulyo : Pizza Buol!</h2>
                 
                 <div class="pt-1">
-                    <button type="button" onclick="bukaModalPanduan()" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-extrabold rounded-xl text-xs transition shadow-2xs inline-flex items-center gap-1.5 cursor-pointer">
-                        <i class="fa-solid fa-circle-question text-amber-600"></i> Panduan & Peraturan Game
+                    <button type="button" onclick="bukaModalPanduan()" class="px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/50 font-extrabold rounded-xl text-xs transition shadow-2xs inline-flex items-center gap-1.5 cursor-pointer backdrop-blur-sm">
+                        <i class="fa-solid fa-circle-question text-amber-400"></i> Panduan & Peraturan Game
                     </button>
                 </div>
             </div>
 
             <!-- PILIHAN JUMLAH PEMAIN -->
             <div class="space-y-2 max-w-sm mx-auto pt-2">
-                <label class="block text-xs font-black text-slate-800 uppercase tracking-wide">Pilih Mode Jumlah Pemain:</label>
+                <label class="block text-xs font-black text-amber-200 uppercase tracking-wide">Pilih Mode Jumlah Pemain:</label>
                 <div class="grid grid-cols-3 gap-2">
                     <button type="button" onclick="setPlayerCount(1)" id="btn-p1" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-amber-500 text-white border-amber-600 shadow">
                         👤 1 Player
                     </button>
-                    <button type="button" onclick="setPlayerCount(2)" id="btn-p2" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-50 shadow-sm">
+                    <button type="button" onclick="setPlayerCount(2)" id="btn-p2" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-slate-800 text-slate-200 border-slate-600 hover:bg-slate-700 shadow-sm">
                         👥 2 Player
                     </button>
-                    <button type="button" onclick="setPlayerCount(3)" id="btn-p3" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-50 shadow-sm">
+                    <button type="button" onclick="setPlayerCount(3)" id="btn-p3" class="py-2.5 px-3 rounded-xl font-black text-xs border-2 transition cursor-pointer bg-slate-800 text-slate-200 border-slate-600 hover:bg-slate-700 shadow-sm">
                         🏆 3 Player
                     </button>
                 </div>
@@ -155,46 +155,32 @@
             </div>
         </div>
 
-        <!-- SCREEN 1.5: LAYAR PERSIAPAN (ESTETIK GRADASI, KOTAK INFO DI ATAS, KARAKTER KIRI-TENGAH-KANAN) -->
-        <div id="screen-ready" class="p-4 sm:p-6 text-center hidden relative overflow-hidden my-auto bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900 text-white flex flex-col justify-between absolute inset-0 z-40">
+        <!-- SCREEN 1.5: LAYAR PERSIAPAN (FULLSCREEN UNGU, INFO DI ATAS, BACKGROUND TRANSPARAN) -->
+        <div id="screen-ready" class="p-4 sm:p-6 text-center hidden relative overflow-hidden my-auto bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 text-white flex flex-col justify-between absolute inset-0 z-40">
             
-            <!-- KOTAK INFO & TOMBOL READY DI ATAS -->
-            <div class="max-w-md w-full mx-auto bg-slate-900/80 p-5 rounded-3xl border-2 border-amber-400 shadow-2xl backdrop-blur-md space-y-3 mt-2">
-                <div class="w-12 h-12 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-xl shadow-lg animate-bounce">
+            <!-- KOTAK INFO & TOMBOL READY DI ATAS (BACKGROUND TRANSPARAN) -->
+            <div class="max-w-md w-full mx-auto bg-transparent p-4 rounded-3xl space-y-2 mt-2">
+                <div class="w-10 h-10 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-lg shadow-lg animate-bounce">
                     🏁
                 </div>
                 <div>
-                    <h3 class="font-black text-base sm:text-lg text-amber-300">Posisi Tim Siap!</h3>
-                    <p id="ready-desc" class="text-[11px] text-slate-300 mt-0.5">Pastikan semua pemain berada di posisi masing-masing (Merah, Biru, Hijau).</p>
+                    <h3 class="font-black text-base sm:text-lg text-amber-300 drop-shadow">Posisi Tim Siap!</h3>
+                    <p id="ready-desc" class="text-[11px] text-slate-200 mt-0.5 drop-shadow">Pastikan semua pemain berada di posisi masing-masing.</p>
                 </div>
                 
                 <!-- TAMPILAN HITUNG MUNDUR -->
                 <div id="countdown-display" class="text-4xl font-black text-amber-400 py-1 hidden">3</div>
 
                 <div id="ready-btn-container" class="pt-1">
-                    <button onclick="startCountdown()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-xl text-xs sm:text-sm transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                    <button onclick="startCountdown()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-xl text-xs sm:text-sm transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
                         <i class="fa-solid fa-flag-checkered"></i> READY! (Mulai Hitung Mundur)
                     </button>
                 </div>
             </div>
 
-            <!-- KARAKTER TIM DI BAWAH (KIRI, TENGAH, KANAN) -->
-            <div class="grid grid-cols-3 gap-2 w-full max-w-2xl mx-auto px-4 items-end pb-4">
-                <!-- Karakter Kiri (Tim Merah) -->
-                <div class="flex flex-col items-center animate-float">
-                    <span class="text-[10px] font-extrabold bg-rose-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Merah</span>
-                    <img src="https://i.ibb.co.com/F4rM2r9m/siap-merah.png" alt="Siap Merah" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
-                </div>
-                <!-- Karakter Tengah (Tim Biru) -->
-                <div class="flex flex-col items-center animate-float" style="animation-delay: 0.3s;">
-                    <span class="text-[10px] font-extrabold bg-blue-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Biru</span>
-                    <img src="https://i.ibb.co.com/jvsP5Vmq/siap-biru.png" alt="Siap Biru" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
-                </div>
-                <!-- Karakter Kanan (Tim Hijau) -->
-                <div class="flex flex-col items-center animate-float" style="animation-delay: 0.6s;">
-                    <span class="text-[10px] font-extrabold bg-emerald-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Hijau</span>
-                    <img src="https://i.ibb.co.com/9kn3YtDq/siap-hijau.png" alt="Siap Hijau" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
-                </div>
+            <!-- KARAKTER TIM DI BAWAH (DINAMIS SESUAI JUMLAH PEMAIN) -->
+            <div id="ready-characters-container" class="flex justify-center items-end gap-6 w-full max-w-3xl mx-auto px-4 pb-6">
+                <!-- Diisi via JavaScript berdasarkan selectedPlayerCount -->
             </div>
 
         </div>
@@ -225,13 +211,13 @@
         </div>
 
         <!-- SCREEN 2: ARENA LOMBA PANJANG PINANG -->
-        <div id="screen-game" class="p-2 sm:p-3 space-y-2 hidden flex-grow overflow-y-auto">
+        <div id="screen-game" class="p-2 sm:p-3 space-y-2 hidden flex-grow overflow-y-auto bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950">
             
             <div id="players-grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 h-full">
                 
                 <!-- PLAYER 1 PANEL (MERAH) -->
-                <div id="p1-panel" class="bg-rose-50/90 border-2 border-rose-300 p-2.5 rounded-xl space-y-1.5 shadow-sm relative flex flex-col justify-between">
-                    <div class="flex justify-between items-center bg-rose-100/80 px-2.5 py-1 rounded-lg border border-rose-200">
+                <div id="p1-panel" class="bg-rose-50/95 border-2 border-rose-300 p-2.5 rounded-xl space-y-1.5 shadow-sm relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center bg-rose-100/90 px-2.5 py-1 rounded-lg border border-rose-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-rose-300 overflow-hidden shadow-xs flex items-center justify-center">
                                 <img src="https://i.ibb.co.com/yF9cKvHk/boit-merah.png" alt="Pria" class="w-full h-full object-contain">
@@ -274,8 +260,8 @@
                 </div>
 
                 <!-- PLAYER 2 PANEL (BIRU) -->
-                <div id="p2-panel" class="bg-blue-50/90 border-2 border-blue-300 p-2.5 rounded-xl space-y-1.5 shadow-sm relative flex flex-col justify-between">
-                    <div class="flex justify-between items-center bg-blue-100/80 px-2.5 py-1 rounded-lg border border-blue-200">
+                <div id="p2-panel" class="bg-blue-50/95 border-2 border-blue-300 p-2.5 rounded-xl space-y-1.5 shadow-sm relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center bg-blue-100/90 px-2.5 py-1 rounded-lg border border-blue-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-blue-300 overflow-hidden shadow-xs flex items-center justify-center">
                                 <img src="https://i.ibb.co.com/Q3n24SyW/boit-biru.png" alt="Wanita" class="w-full h-full object-contain">
@@ -318,8 +304,8 @@
                 </div>
 
                 <!-- PLAYER 3 PANEL (HIJAU) -->
-                <div id="p3-panel" class="bg-emerald-50/90 border-2 border-emerald-300 p-2.5 rounded-xl space-y-1.5 shadow-sm relative flex flex-col justify-between hidden">
-                    <div class="flex justify-between items-center bg-emerald-100/80 px-2.5 py-1 rounded-lg border border-emerald-200">
+                <div id="p3-panel" class="bg-emerald-50/95 border-2 border-emerald-300 p-2.5 rounded-xl space-y-1.5 shadow-sm relative flex flex-col justify-between hidden">
+                    <div class="flex justify-between items-center bg-emerald-100/90 px-2.5 py-1 rounded-lg border border-emerald-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-emerald-300 overflow-hidden shadow-xs flex items-center justify-center">
                                 <img src="https://i.ibb.co.com/fds396Vb/boit-hijau.png" alt="Hijau" class="w-full h-full object-contain">
@@ -365,7 +351,7 @@
 
         </div>
 
-        <!-- SCREEN 3: LAYAR KEMENANGAN (FULLSCREEN & KARAKTER MENANG SESUAI TIM) -->
+        <!-- SCREEN 3: LAYAR KEMENANGAN (FULLSCREEN) -->
         <div id="screen-victory" class="p-6 text-center space-y-4 hidden absolute inset-0 z-50 overflow-hidden bg-gradient-to-b from-amber-400 via-orange-500 to-amber-600 flex flex-col items-center justify-center">
             <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden z-10"></div>
 
@@ -525,6 +511,12 @@
             p3: "https://i.ibb.co.com/vvJ5tg07/menang-hijau.png"
         };
 
+        const siapImages = {
+            p1: "https://i.ibb.co.com/F4rM2r9m/siap-merah.png",
+            p2: "https://i.ibb.co.com/jvsP5Vmq/siap-biru.png",
+            p3: "https://i.ibb.co.com/9kn3YtDq/siap-hijau.png"
+        };
+
         function setPlayerCount(count) {
             selectedPlayerCount = count;
             for(let i = 1; i <= 3; i++) {
@@ -571,6 +563,7 @@
             return arr;
         }
 
+        // RENDER KARAKTER DI LAYAR READY SESUAI JUMLAH PEMAIN
         function goToReadyScreen() {
             const music = document.getElementById('bg-music');
             const icon = document.getElementById('music-icon');
@@ -584,7 +577,48 @@
 
             document.getElementById('countdown-display').classList.add('hidden');
             document.getElementById('ready-btn-container').style.display = 'block';
-            document.getElementById('ready-desc').innerText = "Pastikan semua pemain berada di posisi masing-masing (Merah, Biru, Hijau).";
+            document.getElementById('ready-desc').innerText = "Pastikan semua pemain berada di posisi masing-masing.";
+
+            const charContainer = document.getElementById('ready-characters-container');
+            charContainer.innerHTML = '';
+
+            if (selectedPlayerCount === 1) {
+                // 1 Player: Karakter Merah di Tengah
+                charContainer.innerHTML = `
+                    <div class="flex flex-col items-center animate-float mx-auto">
+                        <span class="text-[10px] font-extrabold bg-rose-600/80 text-white px-3 py-0.5 rounded-full mb-1 shadow">Tim Merah</span>
+                        <img src="${siapImages.p1}" alt="Siap Merah" class="w-28 sm:w-36 h-auto object-contain filter drop-shadow-lg">
+                    </div>
+                `;
+            } else if (selectedPlayerCount === 2) {
+                // 2 Player: Merah di Kiri, Biru di Kanan
+                charContainer.innerHTML = `
+                    <div class="flex flex-col items-center animate-float">
+                        <span class="text-[10px] font-extrabold bg-rose-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Merah</span>
+                        <img src="${siapImages.p1}" alt="Siap Merah" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                    </div>
+                    <div class="flex flex-col items-center animate-float" style="animation-delay: 0.3s;">
+                        <span class="text-[10px] font-extrabold bg-blue-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Biru</span>
+                        <img src="${siapImages.p2}" alt="Siap Biru" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                    </div>
+                `;
+            } else {
+                // 3 Player: Merah (Kiri), Biru (Tengah), Hijau (Kanan)
+                charContainer.innerHTML = `
+                    <div class="flex flex-col items-center animate-float">
+                        <span class="text-[10px] font-extrabold bg-rose-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Merah</span>
+                        <img src="${siapImages.p1}" alt="Siap Merah" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                    </div>
+                    <div class="flex flex-col items-center animate-float" style="animation-delay: 0.3s;">
+                        <span class="text-[10px] font-extrabold bg-blue-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Biru</span>
+                        <img src="${siapImages.p2}" alt="Siap Biru" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                    </div>
+                    <div class="flex flex-col items-center animate-float" style="animation-delay: 0.6s;">
+                        <span class="text-[10px] font-extrabold bg-emerald-600/80 text-white px-2.5 py-0.5 rounded-full mb-1 shadow">Tim Hijau</span>
+                        <img src="${siapImages.p3}" alt="Siap Hijau" class="w-24 sm:w-32 h-auto object-contain filter drop-shadow-lg">
+                    </div>
+                `;
+            }
         }
 
         function startCountdown() {
