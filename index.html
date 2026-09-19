@@ -61,6 +61,11 @@
 
     <div id="game-container" class="max-w-4xl w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-4 border-amber-400 overflow-hidden flex flex-col relative mx-auto">
         
+        <!-- Tombol Kontrol Musik Melayang di Pojok Kanan Atas Header -->
+        <button onclick="toggleMusic()" id="music-btn" class="absolute top-3 right-3 z-40 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full text-xs transition backdrop-blur-sm flex items-center justify-center w-8 h-8 shadow cursor-pointer" title="Nyalakan/Matikan Musik">
+            <i id="music-icon" class="fa-solid fa-volume-xmark"></i>
+        </button>
+
         <!-- HEADER GAME -->
         <header class="bg-gradient-to-r from-amber-500 to-orange-600 p-3 sm:p-4 text-white text-center shadow-md relative flex-shrink-0">
             <div class="absolute top-2.5 left-3 bg-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-extrabold tracking-wider uppercase backdrop-blur-sm">
@@ -132,7 +137,7 @@
                         <div class="absolute top-2 left-0 right-0 text-center z-20">
                             <span class="text-2xl animate-bounce drop-shadow">🍕🏆</span>
                         </div>
-                        <!-- Tiang Pinang Batang Kayu (Dikecilkan lebarnya agar proporsional dengan karakter) -->
+                        <!-- Tiang Pinang Batang Kayu -->
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-36 rounded-sm relative shadow-inner overflow-visible">
                             <!-- Karakter Pemanjat Pria Menempel Realistis Memegang Tiang -->
                             <div id="p1-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-16 h-16 flex items-center justify-center z-30 drop-shadow-lg">
@@ -170,7 +175,7 @@
                         <div class="absolute top-2 left-0 right-0 text-center z-20">
                             <span class="text-2xl animate-bounce drop-shadow">🍕🏆</span>
                         </div>
-                        <!-- Tiang Pinang Batang Kayu (Dikecilkan lebarnya agar proporsional dengan karakter) -->
+                        <!-- Tiang Pinang Batang Kayu -->
                         <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-36 rounded-sm relative shadow-inner overflow-visible">
                             <!-- Karakter Pemanjat Wanita Menempel Realistis Memegang Tiang -->
                             <div id="p2-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-16 h-16 flex items-center justify-center z-30 drop-shadow-lg">
@@ -330,11 +335,75 @@
 
         let activeQuiz = [];
         let currentQIndex = 0;
-        let p1Position = 0; // dalam meter (0 sampai 100)
+        let p1Position = 0; 
         let p2Position = 0;
         let answeredStatus = { p1: false, p2: false };
-        const maxHeight = 100; // Puncak 100 Meter
+        const maxHeight = 100; 
         const totalQuestions = 10;
+
+        // --- SISTEM WEB AUDIO SYNTHESIZER (TANPA FILE EXTERNAL) ---
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let musicInterval = null;
+
+        function toggleMusic() {
+            const icon = document.getElementById('music-icon');
+            if (isMusicPlaying) {
+                stopBGM();
+                icon.className = "fa-solid fa-volume-xmark";
+                isMusicPlaying = false;
+            } else {
+                startBGM();
+                icon.className = "fa-solid fa-volume-high";
+                isMusicPlaying = true;
+            }
+        }
+
+        function startBGM() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            // Melodi latar ceria (Chords: C - Am - F - G)
+            const notes = [261.63, 329.63, 392.00, 440.00, 523.25, 392.00, 329.63, 293.66];
+            let step = 0;
+
+            if (musicInterval) clearInterval(musicInterval);
+
+            musicInterval = setInterval(() => {
+                if (!isMusicPlaying || !audioCtx) return;
+                try {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(notes[step], audioCtx.currentTime);
+
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.4);
+
+                    step = (step + 1) % notes.length;
+                } catch(e) {
+                    console.log(e);
+                }
+            }, 300);
+        }
+
+        function stopBGM() {
+            if (musicInterval) {
+                clearInterval(musicInterval);
+                musicInterval = null;
+            }
+        }
 
         // Fungsi mengacak soal (Fisher-Yates)
         function shuffle(array) {
@@ -348,7 +417,13 @@
         }
 
         function startGame() {
-            // Ambil dan acak 10 soal dari bank soal
+            // Nyalakan musik otomatis saat game dimulai
+            if (!isMusicPlaying) {
+                startBGM();
+                document.getElementById('music-icon').className = "fa-solid fa-volume-high";
+                isMusicPlaying = true;
+            }
+
             activeQuiz = shuffle([...quizBank]).slice(0, totalQuestions);
             currentQIndex = 0;
             p1Position = 0;
@@ -363,7 +438,6 @@
             document.getElementById('p1-height').innerText = p1Position + " M";
             document.getElementById('p2-height').innerText = p2Position + " M";
 
-            // Hitung persentase tinggi tiang (0% sampai 75% agar tidak keluar container)
             let p1Percent = Math.min((p1Position / maxHeight) * 75, 75);
             let p2Percent = Math.min((p2Position / maxHeight) * 75, 75);
 
@@ -410,7 +484,6 @@
             allBtns.forEach(b => b.disabled = true);
 
             if (selectedIndex === q.answer) {
-                // Jawaban Benar: Naik 10 Meter (karena ada 10 soal total 100M)
                 if (player === 'p1') p1Position = Math.min(p1Position + 10, maxHeight);
                 else p2Position = Math.min(p2Position + 10, maxHeight);
 
@@ -421,7 +494,6 @@
                 climberEl.classList.add('animate-climb');
                 setTimeout(() => climberEl.classList.remove('animate-climb'), 400);
             } else {
-                // Jawaban Salah: Terpeleset turun 5 Meter
                 if (player === 'p1') p1Position = Math.max(p1Position - 5, 0);
                 else p2Position = Math.max(p2Position - 5, 0);
 
@@ -436,13 +508,11 @@
 
             updatePositionsUI();
 
-            // Cek apakah ada yang sudah mencapai puncak (100 Meter) atau soal habis
             if (p1Position >= maxHeight || p2Position >= maxHeight || currentQIndex >= totalQuestions - 1) {
                 setTimeout(showVictoryScreen, 1200);
                 return;
             }
 
-            // Jika kedua pemain sudah menjawab, lanjut ke soal berikutnya setelah 2 detik
             if (answeredStatus.p1 && answeredStatus.p2) {
                 setTimeout(() => {
                     currentQIndex++;
@@ -472,7 +542,6 @@
                 descEl.innerHTML = "Keren! Kedua tim mencapai ketinggian yang sama dan menikmati Pizza Buol bersama!";
             }
 
-            // Munculkan efek konfeti kertas selebrasi
             launchConfetti();
         }
 
