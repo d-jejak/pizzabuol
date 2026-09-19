@@ -557,11 +557,13 @@
 
         function loadPlayerQuestion(player) {
             const pData = playerData[player];
+            // Jika semua soal sudah habis, acak ulang bank soal dan mulai dari awal
             if (pData.qIndex >= pData.quiz.length) {
                 pData.quiz = shuffle([...quizBank]);
                 pData.qIndex = 0;
             }
 
+            // Ambil data soal saat ini
             const q = pData.quiz[pData.qIndex];
             document.getElementById(`${player}-q-progress`).innerText = `Soal mandiri ke-${pData.qIndex + 1}`;
             document.getElementById(`${player}-question-text`).innerText = q.question;
@@ -570,11 +572,36 @@
             const container = document.getElementById(`${player}-options`);
             container.innerHTML = '';
 
-            q.options.forEach((opt, idx) => {
+            // --- BAGIAN PENTING: PENGACAKAN OPSI ---
+            
+            // 1. Buat array objek opsi agar kita bisa melacak mana jawaban yang benar
+            //    setelah diacak.
+            let optionsWithStatus = q.options.map((opt, idx) => {
+                return {
+                    text: opt,
+                    isCorrect: (idx === q.answer) // Tandai mana yang jawaban benar asli
+                };
+            });
+
+            // 2. Gunakan fungsi shuffle yang sudah ada untuk mengacak array opsi
+            let shuffledOptions = shuffle(optionsWithStatus);
+
+            // 3. Simpan indeks jawaban benar yang BARU setelah diacak
+            let newCorrectIndex = -1;
+            shuffledOptions.forEach((opt, idx) => {
+                if (opt.isCorrect) {
+                    newCorrectIndex = idx; // Simpan posisi baru jawaban benar
+                }
+            });
+
+            // 4. Tampilkan tombol pilihan berdasarkan urutan yang baru diacak
+            shuffledOptions.forEach((opt, idx) => {
                 const btn = document.createElement('button');
                 btn.className = `w-full text-left p-1.5 sm:p-2 rounded-xl border border-slate-200 bg-white hover:bg-amber-50 text-slate-700 font-semibold text-[10px] sm:text-[11px] transition shadow-2xs cursor-pointer flex items-center justify-between`;
-                btn.innerHTML = `<span>${opt}</span>`;
-                btn.onclick = () => handlePlayerAnswer(player, idx, btn, q.answer);
+                btn.innerHTML = `<span>${opt.text}</span>`;
+                
+                // PENTING: Kirim indeks BARU (newCorrectIndex) ke fungsi handlePlayerAnswer
+                btn.onclick = () => handlePlayerAnswer(player, idx, btn, newCorrectIndex);
                 container.appendChild(btn);
             });
         }
