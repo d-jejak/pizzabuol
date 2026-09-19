@@ -105,13 +105,12 @@
                 <i class="fa-solid fa-flag-checkered mr-1"></i> Panjat Pinang Edukasi
             </div>
             <h1 class="text-sm sm:text-lg font-black tracking-wide drop-shadow-md">🌴🍕 Operasi Penyelamatan : Pizza Buol</h1>
-            <p class="text-[9px] sm:text-[11px] text-amber-100 font-medium mt-0.5">Awas Salah 3 Kali = Game Over! Capai Puncak 100M Juaranya!</p>
+            <p class="text-[9px] sm:text-[11px] text-amber-100 font-medium mt-0.5">Awas Salah 3 Kali = Game Over Mandiri! Capai Puncak 100M Juaranya!</p>
         </header>
 
         <!-- SCREEN 1: MENU UTAMA & PILIHAN JUMLAH PEMAIN -->
         <div id="screen-menu" class="p-4 sm:p-8 text-center space-y-4 my-auto overflow-y-auto">
             
-            <!-- GAMBAR POSTER FORMAT PORTRAIT UTUH -->
             <div class="w-40 sm:w-48 mx-auto rounded-2xl overflow-hidden shadow-xl border-4 border-amber-300 animate-float bg-slate-900 flex items-center justify-center">
                 <img src="https://i.ibb.co.com/zVnPWVmR/satrialyabulyo.jpg" alt="Poster Operasi Penyelamatan Pizza Buol" class="w-full h-full object-contain scale-110">
             </div>
@@ -119,7 +118,6 @@
             <div class="space-y-1.5 max-w-md mx-auto pt-1">
                 <h2 class="font-black text-slate-900 text-base sm:text-lg">Operasi Penyelamatan Lyabulyo : Pizza Buol!</h2>
                 
-                <!-- Tombol Panduan & Peraturan -->
                 <div class="pt-1">
                     <button type="button" onclick="bukaModalPanduan()" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-extrabold rounded-xl text-xs transition shadow-2xs inline-flex items-center gap-1.5 cursor-pointer">
                         <i class="fa-solid fa-circle-question text-amber-600"></i> Panduan & Peraturan Game
@@ -164,9 +162,8 @@
                 <div class="space-y-2.5 text-xs text-slate-600 leading-relaxed">
                     <p>🌴 <strong>Tentang Game:</strong> Lomba panjat pinang edukasi budaya dan kuliner Kabupaten Buol (Misi Lyabulyo / Pizza Buol).</p>
                     <p>🎯 <strong>Tujuan:</strong> Jawab benar 10 pertanyaan untuk mencapai puncak ketinggian 100 Meter dan raih kemenangan.</p>
-                    <p>❌ <strong>Batas Kesalahan:</strong> Jika salah menjawab hingga <strong>3 kali</strong>, maka <strong>Game Over</strong>!</p>
+                    <p>❌ <strong>Batas Kesalahan:</strong> Jika salah menjawab hingga <strong>3 kali</strong>, panel pemain tersebut akan <strong>Game Over</strong> secara mandiri!</p>
                     <p>🛡️ <strong>Anti-Contek:</strong> Setiap pemain mendapatkan bank soal dan pengacakan opsi jawaban yang berbeda secara mandiri.</p>
-                    <p>🚀 <strong>Mekanisme:</strong> Jawab benar naik +10 Meter, jawab salah terpeleset turun -5 Meter & kehilangan 1 nyawa.</p>
                 </div>
                 <div class="pt-2 text-center">
                     <button onclick="tutupModalPanduan()" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs shadow-md transition cursor-pointer">
@@ -186,7 +183,7 @@
                     <div class="flex justify-between items-center bg-rose-100/80 px-2.5 py-1 rounded-lg border border-rose-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-rose-300 overflow-hidden shadow-xs flex items-center justify-center">
-                                <img src="https://i.ibb.co.com/2Y8KfCq3/player-merah.png" alt="Pria" class="w-full h-full object-contain">
+                                <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Pria" class="w-full h-full object-contain">
                             </div>
                             <div>
                                 <span class="text-[8px] font-extrabold text-rose-700 uppercase tracking-wider block">👤 Player 1</span>
@@ -202,25 +199,27 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-2 rounded-lg border border-rose-200 shadow-inner">
-                        <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p1-q-progress">Soal ke-1</div>
-                        <p id="p1-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
-                    </div>
-
-                    <!-- VISUAL TIANG PINANG P1 -->
-                    <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
-                        <div class="absolute top-1 left-0 right-0 text-center z-20">
-                            <span class="text-xl animate-bounce drop-shadow">🏆</span>
+                    <div id="p1-content-box" class="space-y-1.5 flex flex-col justify-between flex-grow">
+                        <div class="bg-white p-2 rounded-lg border border-rose-200 shadow-inner">
+                            <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p1-q-progress">Soal ke-1</div>
+                            <p id="p1-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                         </div>
-                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
-                            <div id="p1-climber" class="absolute left-1/2 -translate-x-[65%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
-                                <img src="https://i.ibb.co.com/2Y8KfCq3/player-merah.png" alt="Karakter Pria" class="w-full h-full object-contain filter drop-shadow-md">
+
+                        <!-- VISUAL TIANG PINANG P1 -->
+                        <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-36 sm:h-44 relative overflow-hidden flex items-end justify-center pb-1">
+                            <div class="absolute top-1 left-0 right-0 text-center z-20">
+                                <span class="text-xl animate-bounce drop-shadow">🏆</span>
+                            </div>
+                            <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-28 sm:h-36 rounded-sm relative shadow-inner overflow-visible">
+                                <div id="p1-climber" class="absolute left-1/2 -translate-x-[65%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
+                                    <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Karakter Pria" class="w-full h-full object-contain filter drop-shadow-md">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="p1-options" class="space-y-1"></div>
-                    <div id="p1-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-rose-800">Siap memanjat...</div>
+                        <div id="p1-options" class="space-y-1"></div>
+                        <div id="p1-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-rose-800">Siap memanjat...</div>
+                    </div>
                 </div>
 
                 <!-- PLAYER 2 PANEL (BIRU) -->
@@ -228,7 +227,7 @@
                     <div class="flex justify-between items-center bg-blue-100/80 px-2.5 py-1 rounded-lg border border-blue-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-blue-300 overflow-hidden shadow-xs flex items-center justify-center">
-                                <img src="https://i.ibb.co.com/dsYFGYCP/player-biru.png" alt="Wanita" class="w-full h-full object-contain">
+                                <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Wanita" class="w-full h-full object-contain">
                             </div>
                             <div>
                                 <span class="text-[8px] font-extrabold text-blue-700 uppercase tracking-wider block">👤 Player 2</span>
@@ -244,25 +243,27 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-2 rounded-lg border border-blue-200 shadow-inner">
-                        <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p2-q-progress">Soal ke-1</div>
-                        <p id="p2-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
-                    </div>
-
-                    <!-- VISUAL TIANG PINANG P2 -->
-                    <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
-                        <div class="absolute top-1 left-0 right-0 text-center z-20">
-                            <span class="text-xl animate-bounce drop-shadow">🏆</span>
+                    <div id="p2-content-box" class="space-y-1.5 flex flex-col justify-between flex-grow">
+                        <div class="bg-white p-2 rounded-lg border border-blue-200 shadow-inner">
+                            <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p2-q-progress">Soal ke-1</div>
+                            <p id="p2-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                         </div>
-                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
-                            <div id="p2-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
-                                <img src="https://i.ibb.co.com/dsYFGYCP/player-biru.png" alt="Karakter Wanita" class="w-full h-full object-contain filter drop-shadow-md">
+
+                        <!-- VISUAL TIANG PINANG P2 -->
+                        <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-36 sm:h-44 relative overflow-hidden flex items-end justify-center pb-1">
+                            <div class="absolute top-1 left-0 right-0 text-center z-20">
+                                <span class="text-xl animate-bounce drop-shadow">🏆</span>
+                            </div>
+                            <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-28 sm:h-36 rounded-sm relative shadow-inner overflow-visible">
+                                <div id="p2-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
+                                    <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Karakter Wanita" class="w-full h-full object-contain filter drop-shadow-md">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="p2-options" class="space-y-1"></div>
-                    <div id="p2-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-blue-800">Siap memanjat...</div>
+                        <div id="p2-options" class="space-y-1"></div>
+                        <div id="p2-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-blue-800">Siap memanjat...</div>
+                    </div>
                 </div>
 
                 <!-- PLAYER 3 PANEL (HIJAU) -->
@@ -270,7 +271,7 @@
                     <div class="flex justify-between items-center bg-emerald-100/80 px-2.5 py-1 rounded-lg border border-emerald-200">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-white p-0.5 border border-emerald-300 overflow-hidden shadow-xs flex items-center justify-center">
-                                <img src="https://i.ibb.co.com/Q7X3nc3d/player-hijau.png" alt="Hijau" class="w-full h-full object-contain">
+                                <img src="https://i.ibb.co.com/q3sp1zdL/hijau.png" alt="Hijau" class="w-full h-full object-contain">
                             </div>
                             <div>
                                 <span class="text-[8px] font-extrabold text-emerald-700 uppercase tracking-wider block">👤 Player 3</span>
@@ -286,25 +287,27 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-2 rounded-lg border border-emerald-200 shadow-inner">
-                        <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p3-q-progress">Soal ke-1</div>
-                        <p id="p3-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
-                    </div>
-
-                    <!-- VISUAL TIANG PINANG P3 -->
-                    <div class="bg-emerald-100/70 border border-emerald-200 rounded-xl h-40 sm:h-48 relative overflow-hidden flex items-end justify-center pb-1">
-                        <div class="absolute top-1 left-0 right-0 text-center z-20">
-                            <span class="text-xl animate-bounce drop-shadow">🏆</span>
+                    <div id="p3-content-box" class="space-y-1.5 flex flex-col justify-between flex-grow">
+                        <div class="bg-white p-2 rounded-lg border border-emerald-200 shadow-inner">
+                            <div class="text-[9px] font-bold text-slate-400 mb-0.5" id="p3-q-progress">Soal ke-1</div>
+                            <p id="p3-question-text" class="font-bold text-slate-800 text-[11px] sm:text-xs min-h-[32px] flex items-center">Memuat soal...</p>
                         </div>
-                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-32 sm:h-40 rounded-sm relative shadow-inner overflow-visible">
-                            <div id="p3-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
-                                <img src="https://i.ibb.co.com/Q7X3nc3d/player-hijau.png" alt="Karakter Hijau" class="w-full h-full object-contain filter drop-shadow-md">
+
+                        <!-- VISUAL TIANG PINANG P3 -->
+                        <div class="bg-emerald-100/70 border border-emerald-200 rounded-xl h-36 sm:h-44 relative overflow-hidden flex items-end justify-center pb-1">
+                            <div class="absolute top-1 left-0 right-0 text-center z-20">
+                                <span class="text-xl animate-bounce drop-shadow">🏆</span>
+                            </div>
+                            <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-28 sm:h-36 rounded-sm relative shadow-inner overflow-visible">
+                                <div id="p3-climber" class="absolute left-1/2 -translate-x-[35%] bottom-0 transition-all duration-300 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center z-30 drop-shadow-lg">
+                                    <img src="https://i.ibb.co.com/q3sp1zdL/hijau.png" alt="Karakter Hijau" class="w-full h-full object-contain filter drop-shadow-md">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="p3-options" class="space-y-1"></div>
-                    <div id="p3-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-emerald-800">Siap memanjat...</div>
+                        <div id="p3-options" class="space-y-1"></div>
+                        <div id="p3-status" class="text-center text-[10px] font-bold py-0.5 min-h-[16px] text-emerald-800">Siap memanjat...</div>
+                    </div>
                 </div>
 
             </div>
@@ -338,24 +341,6 @@
                 <div class="pt-2">
                     <button onclick="resetGame()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
                         <i class="fa-solid fa-rotate-right"></i> Mainkan Lomba Lagi
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- SCREEN 4: LAYAR GAME OVER (DENGAN KARAKTER MENANGIS) -->
-        <div id="screen-gameover" class="p-6 text-center space-y-4 hidden relative overflow-hidden my-auto bg-gradient-to-b from-rose-50 to-slate-100">
-            <div class="relative z-20 space-y-3">
-                <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center shadow-xl animate-crying border-4 border-rose-300 bg-white p-2">
-                    <img id="gameover-sad-img" src="https://i.ibb.co.com/HfHG9fcN/sad-merah.png" alt="Karakter Menangis" class="w-full h-full object-contain">
-                </div>
-                <div class="space-y-1">
-                    <h2 id="gameover-title" class="font-black text-rose-700 text-lg sm:text-2xl drop-shadow-sm">GAME OVER!</h2>
-                    <p id="gameover-desc" class="text-xs sm:text-sm text-slate-600 font-medium">Sayang sekali, kesalahan Anda sudah mencapai 3 kali!</p>
-                </div>
-                <div class="pt-2">
-                    <button onclick="resetGame()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-rose-600 to-red-700 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-rotate-right"></i> Coba Lagi
                     </button>
                 </div>
             </div>
@@ -470,10 +455,9 @@
         let selectedPlayerCount = 1;
         let maxHeight = 100; // 100 Meter (10 soal benar)
 
-        // Status data mandiri per player dengan tambahan hitungan kesalahan (strikes) max 3
         let playerData = {
-            p1: { position: 0, strikes: 0, quiz: [], qIndex: 0 },
-            p2: { position: 0, strikes: 0, quiz: [], qIndex: 0 },
+            p1: { position: 0, strikes: 0, isGameOver: false, quiz: [], qIndex: 0 },
+            p2: { position: 0, strikes: 0, isGameOver: false, quiz: [], qIndex: 0 },
             p3: { position: 0, strikes: 0, quiz: [], qIndex: 0 }
         };
 
@@ -481,12 +465,6 @@
             p1: "https://i.ibb.co.com/HfHG9fcN/sad-merah.png",
             p2: "https://i.ibb.co.com/S73f0hn6/sad-biru.png",
             p3: "https://i.ibb.co.com/qFpgqxs9/sad-hijau.png"
-        };
-
-        const teamNames = {
-            p1: "Tim Merah (Player 1)",
-            p2: "Tim Biru (Player 2)",
-            p3: "Tim Hijau (Player 3)"
         };
 
         function setPlayerCount(count) {
@@ -562,13 +540,20 @@
                 gridContainer.className = "grid grid-cols-1 md:grid-cols-3 gap-3";
             }
 
-            playerData.p1 = { position: 0, strikes: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
-            playerData.p2 = { position: 0, strikes: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
-            playerData.p3 = { position: 0, strikes: 0, quiz: shuffle([...quizBank]), qIndex: 0 };
+            playerData.p1 = { position: 0, strikes: 0, isGameOver: false, quiz: shuffle([...quizBank]), qIndex: 0 };
+            playerData.p2 = { position: 0, strikes: 0, isGameOver: false, quiz: shuffle([...quizBank]), qIndex: 0 };
+            playerData.p3 = { position: 0, strikes: 0, isGameOver: false, quiz: shuffle([...quizBank]), qIndex: 0 };
+
+            // Reset tampilan kotak isi player (hapus tampilan game over jika sebelumnya aktif)
+            for(let i=1; i<=3; i++) {
+                let box = document.getElementById(`p${i}-content-box`);
+                if(box) box.style.display = '';
+                let customMsg = document.getElementById(`p${i}-gameover-msg`);
+                if(customMsg) customMsg.remove();
+            }
 
             document.getElementById('screen-menu').classList.add('hidden');
             document.getElementById('screen-victory').classList.add('hidden');
-            document.getElementById('screen-gameover').classList.add('hidden');
             document.getElementById('screen-game').classList.remove('hidden');
 
             loadPlayerQuestion('p1');
@@ -614,6 +599,8 @@
 
         function loadPlayerQuestion(player) {
             const pData = playerData[player];
+            if (pData.isGameOver || pData.position >= maxHeight) return;
+
             if (pData.qIndex >= pData.quiz.length) {
                 pData.quiz = shuffle([...quizBank]);
                 pData.qIndex = 0;
@@ -654,6 +641,8 @@
 
         function handlePlayerAnswer(player, selectedIndex, btnElement, correctAnswer) {
             const pData = playerData[player];
+            if (pData.isGameOver || pData.position >= maxHeight) return;
+
             const statusEl = document.getElementById(`${player}-status`);
             const allBtns = document.getElementById(`${player}-options`).querySelectorAll('button');
             const climberEl = document.getElementById(`${player}-climber`);
@@ -670,7 +659,6 @@
                 climberEl.classList.add('animate-climb');
                 setTimeout(() => climberEl.classList.remove('animate-climb'), 400);
             } else {
-                // Jawaban Salah: Tambah hitung salah (strikes) & turun posisi
                 pData.strikes++;
                 pData.position = Math.max(pData.position - 5, 0);
 
@@ -686,13 +674,15 @@
             updatePositionsUI();
             updateLivesUI();
 
-            // Cek kondisi Game Over (Salah 3 kali)
+            // Cek apakah pemain ini Game Over (Salah 3 kali) secara mandiri
             if (pData.strikes >= 3) {
-                setTimeout(() => showGameOverScreen(player), 1000);
+                pData.isGameOver = true;
+                showPlayerGameOver(player);
+                checkAllPlayersFinished();
                 return;
             }
 
-            // Cek kondisi Pemenang (Mencapai Puncak 100 M)
+            // Cek apakah pemain ini mencapai puncak
             if (pData.position >= maxHeight) {
                 setTimeout(() => showVictoryScreen(player), 1000);
                 return;
@@ -704,13 +694,59 @@
             }, 1500);
         }
 
-        function showGameOverScreen(losingPlayer) {
-            document.getElementById('screen-game').classList.add('hidden');
-            document.getElementById('screen-gameover').classList.remove('hidden');
+        function showPlayerGameOver(player) {
+            const contentBox = document.getElementById(`${player}-content-box`);
+            if (contentBox) {
+                contentBox.style.display = 'none'; // Sembunyikan form soal sementara
+            }
 
-            document.getElementById('gameover-sad-img').src = sadImages[losingPlayer];
-            document.getElementById('gameover-title').innerText = `${teamNames[losingPlayer]} - GAME OVER!`;
-            document.getElementById('gameover-desc').innerText = `Sayang sekali! Anda telah salah menjawab sebanyak 3 kali dan gagal menyelamatkan Pizza Buol.`;
+            const panel = document.getElementById(`${player}-panel`);
+            if (panel) {
+                // Buat kotak pesan game over khusus di dalam panel player tersebut dengan gambar diperbesar (w-28 h-28)
+                let gameOverDiv = document.createElement('div');
+                gameOverDiv.id = `${player}-gameover-msg`;
+                gameOverDiv.className = "flex flex-col items-center justify-center text-center p-4 space-y-3 my-auto bg-rose-100/90 rounded-2xl border-2 border-rose-400 shadow-inner flex-grow";
+                gameOverDiv.innerHTML = `
+                    <div class="w-28 h-28 rounded-full flex items-center justify-center animate-crying bg-white p-2 shadow-md border-2 border-rose-300">
+                        <img src="${sadImages[player]}" alt="Menangis" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h4 class="font-black text-rose-700 text-sm sm:text-base">GAME OVER!</h4>
+                        <p class="text-[10px] text-slate-600 font-medium mt-0.5">Salah 3 kali, gagal capai puncak.</p>
+                    </div>
+                `;
+                panel.appendChild(gameOverDiv);
+            }
+        }
+
+        function checkAllPlayersFinished() {
+            let activePlayers = 0;
+            let finishedOrOver = 0;
+
+            for (let i = 1; i <= selectedPlayerCount; i++) {
+                let pKey = 'p' + i;
+                activePlayers++;
+                if (playerData[pKey].isGameOver || playerData[pKey].position >= maxHeight) {
+                    finishedOrOver++;
+                }
+            }
+
+            // Jika semua pemain aktif sudah selesai atau game over, arahkan ke layar rekor/kemenangan
+            if (finishedOrOver >= activePlayers) {
+                setTimeout(() => {
+                    // Cari siapa yang posisinya paling tinggi atau menang
+                    let bestPlayer = 'p1';
+                    let maxP = -1;
+                    for (let i = 1; i <= selectedPlayerCount; i++) {
+                        let pKey = 'p' + i;
+                        if (playerData[pKey].position > maxP) {
+                            maxP = playerData[pKey].position;
+                            bestPlayer = pKey;
+                        }
+                    }
+                    showVictoryScreen(bestPlayer);
+                }, 1500);
+            }
         }
 
         function showVictoryScreen(winningPlayer) {
@@ -749,7 +785,7 @@
             if (winningPlayer === 'p3') winnerName = "TIM HIJAU (PLAYER 3)";
 
             titleEl.innerHTML = `🏆 ${winnerName} JUARA 1!`;
-            descEl.innerHTML = "Luar biasa! Berhasil menaklukkan puncak ketinggian 100 Meter dan merebut Pizza Buol!";
+            descEl.innerHTML = "Luar biasa! Perolehan ketinggian terbaik berhasil diraih!";
 
             launchConfetti();
         }
@@ -772,7 +808,6 @@
 
         function resetGame() {
             document.getElementById('screen-victory').classList.add('hidden');
-            document.getElementById('screen-gameover').classList.add('hidden');
             document.getElementById('screen-menu').classList.remove('hidden');
         }
     </script>
