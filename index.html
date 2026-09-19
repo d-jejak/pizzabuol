@@ -59,7 +59,7 @@
 </head>
 <body class="p-2 sm:p-4 text-slate-800">
 
-    <!-- Audio Latar Belakang Lokal (audio-gamifikasi.mp3) -->
+    <!-- Audio Latar Belakang Memanggil File Lokal audio-gamifikasi.mp3 -->
     <audio id="bg-music" src="audio-gamifikasi.mp3" loop preload="auto"></audio>
 
     <div id="game-container" class="max-w-4xl w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-4 border-amber-400 overflow-hidden flex flex-col relative mx-auto">
@@ -344,16 +344,18 @@
         const maxHeight = 100; 
         const totalQuestions = 10;
 
-        // --- KONTROL MUSIK LOKAL ---
+        // --- KONTROL MUSIK AUDIO LOKAL ---
         function toggleMusic() {
             const music = document.getElementById('bg-music');
             const icon = document.getElementById('music-icon');
             
             if (music.paused) {
-                music.volume = 0.5;
+                music.volume = 0.6;
                 music.play().then(() => {
                     icon.className = "fa-solid fa-volume-high";
-                }).catch(e => console.log("Gagal memutar audio:", e));
+                }).catch(e => {
+                    console.log("Audio diblokir browser, klik interaksi diperlukan:", e);
+                });
             } else {
                 music.pause();
                 icon.className = "fa-solid fa-volume-xmark";
@@ -372,13 +374,15 @@
         }
 
         function startGame() {
-            // Otomatis nyalakan musik saat game dimulai
+            // Coba nyalakan musik otomatis saat tombol mulai diklik
             const music = document.getElementById('bg-music');
             const icon = document.getElementById('music-icon');
-            music.volume = 0.5;
+            music.volume = 0.6;
             music.play().then(() => {
                 icon.className = "fa-solid fa-volume-high";
-            }).catch(e => console.log("Autoplay dibatasi browser"));
+            }).catch(e => {
+                console.log("Autoplay dibatasi browser, silakan klik ikon speaker di atas.");
+            });
 
             activeQuiz = shuffle([...quizBank]).slice(0, totalQuestions);
             currentQIndex = 0;
