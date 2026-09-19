@@ -21,7 +21,6 @@
             justify-content: center;
             overflow-x: hidden;
         }
-        /* Kontainer Game Responsif Penuh untuk Mode Lanskap HP, Papan Interaktif, & Desktop */
         #game-container {
             width: 100vw;
             height: 100vh;
@@ -74,6 +73,14 @@
         .animate-crying {
             animation: crying 0.8s ease-in-out infinite;
         }
+        @keyframes pulseZoom {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-countdown {
+            animation: pulseZoom 0.6s ease-in-out;
+        }
         @keyframes confettiFall {
             0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 1; }
             100% { transform: translateY(105vh) rotate(1080deg) scale(1.2); opacity: 0; }
@@ -89,12 +96,12 @@
 </head>
 <body class="p-0 text-slate-800">
 
-    <!-- Audio Latar Belakang Memanggil File Lokal audio-gamifikasi.mp3 -->
+    <!-- Audio Latar Belakang -->
     <audio id="bg-music" src="gamifikasi-audio.mp3" loop preload="auto"></audio>
 
     <div id="game-container" class="bg-white/95 backdrop-blur-md shadow-2xl overflow-hidden flex flex-col relative mx-auto">
         
-        <!-- Tombol Kontrol Musik Melayang di Pojok Kanan Atas Header -->
+        <!-- Tombol Kontrol Musik Melayang -->
         <button onclick="toggleMusic()" id="music-btn" class="absolute top-12 sm:top-3 right-3 z-40 bg-white/30 hover:bg-white/50 text-white p-2 rounded-full text-xs transition backdrop-blur-sm flex items-center justify-center w-9 h-9 shadow cursor-pointer border border-white/40" title="Nyalakan/Matikan Musik">
             <i id="music-icon" class="fa-solid fa-volume-xmark"></i>
         </button>
@@ -142,9 +149,29 @@
             </div>
 
             <div class="pt-3 pb-2">
-                <button onclick="startGame()" class="w-full max-w-sm py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs sm:text-sm transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2 mx-auto">
+                <button onclick="goToReadyScreen()" class="w-full max-w-sm py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs sm:text-sm transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2 mx-auto">
                     <i class="fa-solid fa-play"></i> Mulai Misi Penyelamatan
                 </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 1.5: LAYAR PERSIAPAN & TOMBOL READY (HITUNG MUNDUR 3, 2, 1, GO) -->
+        <div id="screen-ready" class="p-6 text-center space-y-6 hidden relative overflow-hidden my-auto bg-slate-900/90 text-white flex flex-col items-center justify-center absolute inset-0 z-40">
+            <div class="space-y-3 max-w-md w-full bg-slate-800/90 p-8 rounded-3xl border-4 border-amber-400 shadow-2xl backdrop-blur-md">
+                <div class="w-20 h-20 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-3xl shadow-lg animate-bounce">
+                    🏁
+                </div>
+                <h3 class="font-black text-xl text-amber-300">Posisi Tim Siap!</h3>
+                <p id="ready-desc" class="text-xs text-slate-300">Pastikan semua pemain sudah berada di posisinya masing-masing (Merah, Biru, Hijau).</p>
+                
+                <!-- TAMPILAN HITUNG MUNDUR -->
+                <div id="countdown-display" class="text-5xl font-black text-amber-400 py-3 hidden">3</div>
+
+                <div id="ready-btn-container" class="pt-2">
+                    <button onclick="startCountdown()" class="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-xl text-sm sm:text-base transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-flag-checkered"></i> READY! (Mulai Hitung Mundur)
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -316,11 +343,9 @@
 
         <!-- SCREEN 3: LAYAR KEMENANGAN (FULLSCREEN & KARAKTER MENANG SESUAI TIM) -->
         <div id="screen-victory" class="p-6 text-center space-y-4 hidden absolute inset-0 z-50 overflow-hidden bg-gradient-to-b from-amber-400 via-orange-500 to-amber-600 flex flex-col items-center justify-center">
-            <!-- Kontainer Efek Konfeti Mewah Fullscreen -->
             <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden z-10"></div>
 
             <div class="relative z-20 space-y-3 max-w-lg w-full bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-2xl border-4 border-amber-300">
-                <!-- GAMBAR KARAKTER PEMENANG (DINAMIS SESUAI TIM) -->
                 <div class="w-28 h-28 mx-auto bg-amber-100 rounded-full flex items-center justify-center shadow-xl animate-bounce border-4 border-amber-400 overflow-hidden p-2">
                     <img id="victory-winner-img" src="https://i.ibb.co.com/21mvp52r/menang-merah.png" alt="Karakter Pemenang" class="w-full h-full object-contain">
                 </div>
@@ -522,7 +547,8 @@
             return arr;
         }
 
-        function startGame() {
+        // TRANSISI KE LAYAR READY
+        function goToReadyScreen() {
             const music = document.getElementById('bg-music');
             const icon = document.getElementById('music-icon');
             music.volume = 0.6;
@@ -530,6 +556,48 @@
                 icon.className = "fa-solid fa-volume-high";
             }).catch(e => console.log("Autoplay dibatasi"));
 
+            document.getElementById('screen-menu').classList.add('hidden');
+            document.getElementById('screen-ready').classList.remove('hidden');
+
+            // Reset tampilan hitung mundur
+            document.getElementById('countdown-display').classList.add('hidden');
+            document.getElementById('ready-btn-container').style.display = 'block';
+        }
+
+        // FUNGSI HITUNG MUNDUR 3, 2, 1, GO
+        function startCountdown() {
+            const btnContainer = document.getElementById('ready-btn-container');
+            const countdownEl = document.getElementById('countdown-display');
+            const readyDesc = document.getElementById('ready-desc');
+
+            btnContainer.style.display = 'none';
+            countdownEl.classList.remove('hidden');
+            readyDesc.innerText = "Game segera dimulai, bersiaplah!";
+
+            let count = 3;
+            countdownEl.innerText = count;
+            countdownEl.className = "text-6xl font-black text-amber-400 py-3 animate-countdown";
+
+            let timer = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownEl.innerText = count;
+                    countdownEl.classList.remove('animate-countdown');
+                    void countdownEl.offsetWidth; // Trigger reflow animation
+                    countdownEl.classList.add('animate-countdown');
+                } else if (count === 0) {
+                    countdownEl.innerText = "GO! 🚀";
+                    countdownEl.classList.remove('animate-countdown');
+                    void countdownEl.offsetWidth;
+                    countdownEl.classList.add('animate-countdown');
+                } else {
+                    clearInterval(timer);
+                    startGameReal();
+                }
+            }, 1000);
+        }
+
+        function startGameReal() {
             const p1Panel = document.getElementById('p1-panel');
             const p2Panel = document.getElementById('p2-panel');
             const p3Panel = document.getElementById('p3-panel');
@@ -560,7 +628,7 @@
                 if(customMsg) customMsg.remove();
             }
 
-            document.getElementById('screen-menu').classList.add('hidden');
+            document.getElementById('screen-ready').classList.add('hidden');
             document.getElementById('screen-victory').classList.add('hidden');
             document.getElementById('screen-game').classList.remove('hidden');
 
@@ -756,7 +824,6 @@
             document.getElementById('screen-game').classList.add('hidden');
             document.getElementById('screen-victory').classList.remove('hidden');
 
-            // Set gambar karakter menang sesuai tim pemenang
             document.getElementById('victory-winner-img').src = winImages[winningPlayer];
 
             const scoresGrid = document.getElementById('final-scores-grid');
