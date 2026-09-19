@@ -90,7 +90,7 @@
 <body class="p-0 text-slate-800">
 
     <!-- Audio Latar Belakang Memanggil File Lokal audio-gamifikasi.mp3 -->
-    <audio id="bg-music" src="gamifikasi-audio.mp3" loop preload="auto"></audio>
+    <audio id="bg-music" src="audio-gamifikasi.mp3" loop preload="auto"></audio>
 
     <div id="game-container" class="bg-white/95 backdrop-blur-md shadow-2xl overflow-hidden flex flex-col relative mx-auto">
         
@@ -314,14 +314,17 @@
 
         </div>
 
-        <!-- SCREEN 3: LAYAR KEMENANGAN -->
-        <div id="screen-victory" class="p-6 text-center space-y-4 hidden relative overflow-hidden my-auto bg-gradient-to-b from-amber-50/50 to-orange-100/50">
+        <!-- SCREEN 3: LAYAR KEMENANGAN (FULLSCREEN & KARAKTER MENANG SESUAI TIM) -->
+        <div id="screen-victory" class="p-6 text-center space-y-4 hidden absolute inset-0 z-50 overflow-hidden bg-gradient-to-b from-amber-400 via-orange-500 to-amber-600 flex flex-col items-center justify-center">
+            <!-- Kontainer Efek Konfeti Mewah Fullscreen -->
             <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden z-10"></div>
 
-            <div class="relative z-20 space-y-3">
-                <div class="w-24 h-24 mx-auto bg-gradient-to-tr from-amber-400 to-yellow-300 text-white rounded-full flex items-center justify-center text-4xl shadow-xl animate-bounce border-4 border-white">
-                    🏆
+            <div class="relative z-20 space-y-3 max-w-lg w-full bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-2xl border-4 border-amber-300">
+                <!-- GAMBAR KARAKTER PEMENANG (DINAMIS SESUAI TIM) -->
+                <div class="w-28 h-28 mx-auto bg-amber-100 rounded-full flex items-center justify-center shadow-xl animate-bounce border-4 border-amber-400 overflow-hidden p-2">
+                    <img id="victory-winner-img" src="https://i.ibb.co.com/SDcstKVg/win-merah.png" alt="Karakter Pemenang" class="w-full h-full object-contain">
                 </div>
+                
                 <div class="space-y-1">
                     <h2 id="victory-title" class="font-black text-slate-900 text-lg sm:text-2xl drop-shadow-sm">Juara Panjat Pinang Pizza Buol!</h2>
                     <p id="victory-desc" class="text-xs sm:text-sm text-slate-700 font-semibold">Puncak tiang berhasil dicapai dengan gemilang!</p>
@@ -339,7 +342,7 @@
                 </div>
 
                 <div class="pt-2">
-                    <button onclick="resetGame()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                    <button onclick="resetGame()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
                         <i class="fa-solid fa-rotate-right"></i> Mainkan Lomba Lagi
                     </button>
                 </div>
@@ -352,119 +355,125 @@
         const quizBank = [
             {
                 question: "Lyabulyo atau yang dikenal sebagai Pizza Buol merupakan salah satu makanan tradisional yang menjadi bagian dari kekayaan kuliner daerah …",
-                options: ["Buol", "Poso", "Banggai", "Donggala"],
+                options: ["A. Buol", "B. Poso", "C. Banggai", "D. Donggala"],
                 answer: 0
             },
             {
                 question: "Salah satu bahan utama yang menjadi ciri khas Lyabulyo adalah …",
-                options: ["Tepung terigu", "Sagu", "Beras ketan", "Tepung jagung"],
+                options: ["A. Tepung terigu", "B. Sagu", "C. Beras ketan", "D. Tepung jagung"],
                 answer: 1
             },
             {
                 question: "Pemanfaatan sagu dalam pembuatan Lyabulyo menunjukkan bahwa masyarakat Buol sejak dahulu memanfaatkan …",
-                options: ["Bahan makanan dari luar daerah", "Sumber daya alam yang tersedia di daerahnya", "Produk makanan cepat saji", "Bahan makanan impor"],
+                options: ["A. Bahan makanan dari luar daerah", "B. Sumber daya alam yang tersedia di daerahnya", "C. Produk makanan cepat saji", "D. Bahan makanan impor"],
                 answer: 1
             },
             {
                 question: "Mengapa Lyabulyo dapat disebut sebagai bagian dari warisan budaya daerah Buol?",
-                options: ["Karena hanya dibuat menggunakan bahan mahal", "Karena memiliki keterkaitan dengan tradisi dan pengetahuan kuliner masyarakat setempat", "Karena mengikuti makanan dari luar negeri", "Karena hanya dijual di restoran modern"],
+                options: ["A. Karena hanya dibuat menggunakan bahan mahal", "B. Karena memiliki keterkaitan dengan tradisi dan pengetahuan kuliner masyarakat setempat", "C. Karena mengikuti makanan dari luar negeri", "D. Karena hanya dijual di restoran modern"],
                 answer: 1
             },
             {
                 question: "Mengetahui makanan tradisional seperti Lyabulyo penting bagi generasi muda karena …",
-                options: ["Semua makanan modern harus ditinggalkan", "Generasi muda dapat mengenal dan meneruskan warisan budaya daerah", "Makanan tradisional harus dijual dengan harga mahal", "Makanan daerah tidak boleh mengalami perkembangan"],
+                options: ["A. Semua makanan modern harus ditinggalkan", "B. Generasi muda dapat mengenal dan meneruskan warisan budaya daerah", "C. Makanan tradisional harus dijual dengan harga mahal", "D. Makanan daerah tidak boleh mengalami perkembangan"],
                 answer: 1
             },
             {
                 question: "Seorang siswa mengatakan, “Lyabulyo itu makanan zaman dulu, jadi tidak menarik bagi anak muda.” Tanggapan yang paling tepat adalah …",
-                options: ["Membenarkan pendapat tersebut", "Mengajak siswa tersebut mengenal nilai budaya dan keunikan Lyabulyo", "Menyuruhnya menyukai Lyabulyo", "Membandingkannya dengan makanan luar negeri"],
+                options: ["A. Membenarkan pendapat tersebut", "B. Mengajak siswa tersebut mengenal nilai budaya dan keunikan Lyabulyo", "C. Menyuruhnya menyukai Lyabulyo", "D. Membandingkannya dengan makanan luar negeri"],
                 answer: 1
             },
             {
                 question: "Salah satu cara paling sederhana yang dapat dilakukan pelajar untuk ikut melestarikan Lyabulyo adalah …",
-                options: ["Mempelajari dan mengenalkan Lyabulyo kepada orang lain", "Membiarkan hanya orang tua yang mengetahuinya", "Menganggapnya sebagai makanan kuno", "Menghindari pembicaraan tentang makanan tradisional"],
+                options: ["A. Mempelajari dan mengenalkan Lyabulyo kepada orang lain", "B. Membiarkan hanya orang tua yang mengetahuinya", "C. Menganggapnya sebagai makanan kuno", "D. Menghindari pembicaraan tentang makanan tradisional"],
                 answer: 0
             },
             {
                 question: "Media sosial dapat dimanfaatkan untuk melestarikan Lyabulyo dengan cara …",
-                options: ["Membuat konten tentang sejarah, proses pembuatan, dan keunikan Lyabulyo", "Mengubah asal-usul Lyabulyo agar lebih menarik", "Menghapus informasi tentang makanan tradisional", "Membandingkan budaya Buol secara negatif dengan daerah lain"],
+                options: ["A. Membuat konten tentang sejarah, proses pembuatan, dan keunikan Lyabulyo", "B. Mengubah asal-usul Lyabulyo agar lebih menarik", "C. Menghapus informasi tentang makanan tradisional", "D. Membandingkan budaya Buol secara negatif dengan daerah lain"],
                 answer: 0
             },
             {
                 question: "Jika generasi muda semakin jarang mengenal Lyabulyo, dampak yang mungkin terjadi adalah …",
-                options: ["Pengetahuan tentang makanan tersebut dapat semakin berkurang", "Lyabulyo akan otomatis semakin terkenal", "Budaya daerah akan berkembang tanpa perlu diwariskan", "Masyarakat akan semakin memahami sejarahnya"],
+                options: ["A. Pengetahuan tentang makanan tersebut dapat semakin berkurang", "B. Lyabulyo akan otomatis semakin terkenal", "C. Budaya daerah akan berkembang tanpa perlu diwariskan", "D. Masyarakat akan semakin memahami sejarahnya"],
                 answer: 0
             },
             {
                 question: "Seorang siswa membuat desain kemasan Lyabulyo yang modern tanpa menghilangkan identitas dan ciri khas daerah Buol. Tindakan tersebut merupakan contoh …",
-                options: ["Penghapusan budaya", "Pelestarian budaya melalui inovasi", "Penolakan terhadap budaya lokal", "Penggantian budaya daerah"],
+                options: ["A. Penghapusan budaya", "B. Pelestarian budaya melalui inovasi", "C. Penolakan terhadap budaya lokal", "D. Penggantian budaya daerah"],
                 answer: 1
             },
             {
                 question: "Sekelompok siswa membuat video pendek tentang Lyabulyo, mulai dari bahan sagu hingga proses pembuatannya, kemudian membagikannya di media sosial. Kegiatan tersebut menunjukkan bahwa teknologi dapat digunakan untuk …",
-                options: ["Menghilangkan budaya tradisional", "Mempromosikan dan mendokumentasikan budaya daerah", "Menggantikan seluruh tradisi masyarakat", "Mengubah sejarah daerah"],
+                options: ["A. Menghilangkan budaya tradisional", "B. Mempromosikan dan mendokumentasikan budaya daerah", "C. Menggantikan seluruh tradisi masyarakat", "D. Mengubah sejarah daerah"],
                 answer: 1
             },
             {
                 question: "Ketika memperkenalkan Lyabulyo kepada orang dari luar Buol, sikap yang paling tepat adalah …",
-                options: ["Menjelaskan asal-usul dan keunikannya dengan informasi yang benar", "Mengaku bahwa Lyabulyo berasal dari daerah lain", "Mengubah cerita agar terdengar lebih hebat", "Tidak perlu menyebutkan asal daerahnya"],
+                options: ["A. Menjelaskan asal-usul dan keunikannya dengan informasi yang benar", "B. Mengaku bahwa Lyabulyo berasal dari daerah lain", "C. Mengubah cerita agar terdengar lebih hebat", "D. Tidak perlu menyebutkan asal daerahnya"],
                 answer: 0
             },
             {
                 question: "Salah satu manfaat melestarikan Lyabulyo bagi masyarakat Buol adalah …",
-                options: ["Memperkuat identitas dan kebanggaan terhadap budaya daerah", "Mengurangi penggunaan bahan lokal", " Menghilangkan makanan tradisional", "Membuat generasi muda melupakan budaya daerah"],
+                options: ["A. Memperkuat identitas dan kebanggaan terhadap budaya daerah", "B. Mengurangi penggunaan bahan lokal", "C. Menghilangkan makanan tradisional", "D. Membuat generasi muda melupakan budaya daerah"],
                 answer: 0
             },
             {
                 question: "Jika sekolah ingin mengadakan kegiatan untuk mengenalkan Lyabulyo kepada siswa, kegiatan yang paling tepat adalah …",
-                options: ["Mengadakan pameran atau festival kuliner tradisional Buol", "Melarang siswa mengenal makanan tradisional", "Hanya menyajikan makanan dari luar daerah", "D. Menghapus materi budaya lokal"],
+                options: ["A. Mengadakan pameran atau festival kuliner tradisional Buol", "B. Melarang siswa mengenal makanan tradisional", "C. Hanya menyajikan makanan dari luar daerah", "D. Menghapus materi budaya lokal"],
                 answer: 0
             },
             {
                 question: "Seorang siswa ingin membuat konten TikTok tentang Lyabulyo. Agar konten tersebut ikut melestarikan budaya, sebaiknya ia …",
-                options: ["Membuat konten yang informatif, kreatif, dan berdasarkan fakta", "Membuat cerita palsu agar viral", "Menghilangkan nama Buol dari konten", "Mengubah seluruh bahan asli Lyabulyo"],
+                options: ["A. Membuat konten yang informatif, kreatif, dan berdasarkan fakta", "B. Membuat cerita palsu agar viral", "C. Menghilangkan nama Buol dari konten", "D. Mengubah seluruh bahan asli Lyabulyo"],
                 answer: 0
             },
             {
                 question: "Pelestarian budaya tidak berarti menolak perkembangan zaman. Contoh yang tepat dalam melestarikan Lyabulyo adalah …",
-                options: ["Mempertahankan nilai dan identitas Lyabulyo sambil menggunakan teknologi untuk mengenalkannya", "Menolak semua bentuk teknologi", "Mengubah Lyabulyo menjadi makanan asing", "Menhentikan pembuatan Lyabulyo secara tradisional"],
+                options: ["A. Mempertahankan nilai dan identitas Lyabulyo sambil menggunakan teknologi untuk mengenalkannya", "B. Menolak semua bentuk teknologi", "C. Mengubah Lyabulyo menjadi makanan asing", "D. Menhentikan pembuatan Lyabulyo secara tradisional"],
                 answer: 0
             },
             {
                 question: "Mengapa generasi muda perlu mempelajari makanan tradisional seperti Lyabulyo meskipun banyak makanan modern yang lebih populer?",
-                options: ["Karena makanan tradisional merupakan bagian dari identitas dan sejarah masyarakat", "Karena makanan modern tidak boleh dimakan", "Karena semua makanan tradisional pasti lebih enak", "Karena generasi muda tidak boleh mengikuti perkembangan zaman"],
+                options: ["A. Karena makanan tradisional merupakan bagian dari identitas dan sejarah masyarakat", "B. Karena makanan modern tidak boleh dimakan", "C. Karena semua makanan tradisional pasti lebih enak", "D. Karena generasi muda tidak boleh mengikuti perkembangan zaman"],
                 answer: 0
             },
             {
                 question: "Bayangkan Lyabulyo mulai jarang dibuat karena anak-anak muda tidak tertarik mempelajarinya. Tindakan yang paling tepat dilakukan generasi muda adalah …",
-                options: ["Mempelajari cara pembuatannya dari orang yang masih menguasai pengetahuan tersebut", "Membiarkannya hilang karena dianggap kuno", "Menggantinya dengan makanan luar daerah", "Menunggu pemerintah melakukan semuanya"],
+                options: ["A. Mempelajari cara pembuatannya dari orang yang masih menguasai pengetahuan tersebut", "B. Membiarkannya hilang karena dianggap kuno", "C. Menggantinya dengan makanan luar daerah", "D. Menunggu pemerintah melakukan semuanya"],
                 answer: 0
             },
             {
                 question: "Seorang siswa memiliki ide membuat “Festival Lyabulyo” di sekolah yang menampilkan makanan, sejarah, cerita masyarakat, dan kreativitas siswa. Nilai yang paling terlihat dari kegiatan tersebut adalah …",
-                options: ["Pelestarian budaya melalui kreativitas generasi muda", "Persaingan antardaerah", "Penolakan terhadap budaya modern", "Penghapusan tradisi lama"],
+                options: ["A. Pelestarian budaya melalui kreativitas generasi muda", "B. Persaingan antardaerah", "C. Penolakan terhadap budaya modern", "D. Penghapusan tradisi lama"],
                 answer: 0
             },
             {
                 question: "Budaya daerah akan tetap hidup apabila generasi mudanya mau mengenal, menghargai, mempraktikkan, mengembangkan, dan memperkenalkannya kepada orang lain. Peran generasi muda dalam melestarikan Lyabulyo adalah …",
-                options: ["Cukup mengetahui nama Lyabulyo", "Menyerahkan pelestarian sepenuhnya kepada orang tua", "Mengenal, mempelajari, mengembangkan, mempromosikan, dan mewariskannya kepada generasi berikutnya", "Mengubah Lyabulyo sepenuhnya mengikuti makanan modern"],
+                options: ["A. Cukup mengetahui nama Lyabulyo", "B. Menyerahkan pelestarian sepenuhnya kepada orang tua", "C. Mengenal, mempelajari, mengembangkan, mempromosikan, dan mewariskannya kepada generasi berikutnya", "D. Mengubah Lyabulyo sepenuhnya mengikuti makanan modern"],
                 answer: 2
             }
         ];
 
         let selectedPlayerCount = 1;
-        let maxHeight = 100; // 100 Meter (10 soal benar)
+        let maxHeight = 100;
 
         let playerData = {
             p1: { position: 0, strikes: 0, isGameOver: false, quiz: [], qIndex: 0 },
             p2: { position: 0, strikes: 0, isGameOver: false, quiz: [], qIndex: 0 },
-            p3: { position: 0, strikes: 0, quiz: [], qIndex: 0 }
+            p3: { position: 0, strikes: 0, isGameOver: false, quiz: [], qIndex: 0 }
         };
 
         const sadImages = {
             p1: "https://i.ibb.co.com/HfHG9fcN/sad-merah.png",
             p2: "https://i.ibb.co.com/S73f0hn6/sad-biru.png",
             p3: "https://i.ibb.co.com/qFpgqxs9/sad-hijau.png"
+        };
+
+        const winImages = {
+            p1: "https://i.ibb.co.com/SDcstKVg/win-merah.png",
+            p2: "https://i.ibb.co.com/YBpGf2YW/win-biru.png",
+            p3: "https://i.ibb.co.com/Jj3YR2TD/win-hijau.png"
         };
 
         function setPlayerCount(count) {
@@ -544,7 +553,6 @@
             playerData.p2 = { position: 0, strikes: 0, isGameOver: false, quiz: shuffle([...quizBank]), qIndex: 0 };
             playerData.p3 = { position: 0, strikes: 0, isGameOver: false, quiz: shuffle([...quizBank]), qIndex: 0 };
 
-            // Reset tampilan kotak isi player (hapus tampilan game over jika sebelumnya aktif)
             for(let i=1; i<=3; i++) {
                 let box = document.getElementById(`p${i}-content-box`);
                 if(box) box.style.display = '';
@@ -674,7 +682,6 @@
             updatePositionsUI();
             updateLivesUI();
 
-            // Cek apakah pemain ini Game Over (Salah 3 kali) secara mandiri
             if (pData.strikes >= 3) {
                 pData.isGameOver = true;
                 showPlayerGameOver(player);
@@ -682,7 +689,6 @@
                 return;
             }
 
-            // Cek apakah pemain ini mencapai puncak
             if (pData.position >= maxHeight) {
                 setTimeout(() => showVictoryScreen(player), 1000);
                 return;
@@ -697,22 +703,21 @@
         function showPlayerGameOver(player) {
             const contentBox = document.getElementById(`${player}-content-box`);
             if (contentBox) {
-                contentBox.style.display = 'none'; // Sembunyikan form soal sementara
+                contentBox.style.display = 'none';
             }
 
             const panel = document.getElementById(`${player}-panel`);
             if (panel) {
-                // Buat kotak pesan game over khusus di dalam panel player tersebut dengan gambar diperbesar (w-28 h-28)
                 let gameOverDiv = document.createElement('div');
                 gameOverDiv.id = `${player}-gameover-msg`;
                 gameOverDiv.className = "flex flex-col items-center justify-center text-center p-4 space-y-3 my-auto bg-rose-100/90 rounded-2xl border-2 border-rose-400 shadow-inner flex-grow";
                 gameOverDiv.innerHTML = `
-                    <div class="w-28 h-28 rounded-full flex items-center justify-center animate-crying bg-white p-2 shadow-md border-2 border-rose-300">
+                    <div class="w-32 h-32 rounded-full flex items-center justify-center animate-crying bg-white p-2 shadow-md border-2 border-rose-300">
                         <img src="${sadImages[player]}" alt="Menangis" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <h4 class="font-black text-rose-700 text-sm sm:text-base">GAME OVER!</h4>
-                        <p class="text-[10px] text-slate-600 font-medium mt-0.5">Salah 3 kali, gagal capai puncak.</p>
+                        <h4 class="font-black text-rose-700 text-base sm:text-lg">GAME OVER!</h4>
+                        <p class="text-[11px] text-slate-600 font-medium mt-0.5">Salah 3 kali, gagal capai puncak.</p>
                     </div>
                 `;
                 panel.appendChild(gameOverDiv);
@@ -731,10 +736,8 @@
                 }
             }
 
-            // Jika semua pemain aktif sudah selesai atau game over, arahkan ke layar rekor/kemenangan
             if (finishedOrOver >= activePlayers) {
                 setTimeout(() => {
-                    // Cari siapa yang posisinya paling tinggi atau menang
                     let bestPlayer = 'p1';
                     let maxP = -1;
                     for (let i = 1; i <= selectedPlayerCount; i++) {
@@ -752,6 +755,9 @@
         function showVictoryScreen(winningPlayer) {
             document.getElementById('screen-game').classList.add('hidden');
             document.getElementById('screen-victory').classList.remove('hidden');
+
+            // Set gambar karakter menang sesuai tim pemenang
+            document.getElementById('victory-winner-img').src = winImages[winningPlayer];
 
             const scoresGrid = document.getElementById('final-scores-grid');
             scoresGrid.innerHTML = `
@@ -785,7 +791,7 @@
             if (winningPlayer === 'p3') winnerName = "TIM HIJAU (PLAYER 3)";
 
             titleEl.innerHTML = `🏆 ${winnerName} JUARA 1!`;
-            descEl.innerHTML = "Luar biasa! Perolehan ketinggian terbaik berhasil diraih!";
+            descEl.innerHTML = "Luar biasa! Berhasil menaklukkan puncak ketinggian 100 Meter dan merebut Pizza Buol!";
 
             launchConfetti();
         }
@@ -794,7 +800,7 @@
             const container = document.getElementById('confetti-container');
             container.innerHTML = '';
             const colors = ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#8b5cf6', '#ec4899', '#f43f5e', '#06b6d4'];
-            for (let i = 0; i < 70; i++) {
+            for (let i = 0; i < 90; i++) {
                 const conf = document.createElement('div');
                 conf.className = 'confetti';
                 conf.style.left = Math.random() * 100 + '%';
@@ -808,6 +814,7 @@
 
         function resetGame() {
             document.getElementById('screen-victory').classList.add('hidden');
+            document.getElementById('screen-game').classList.add('hidden');
             document.getElementById('screen-menu').classList.remove('hidden');
         }
     </script>
