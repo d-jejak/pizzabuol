@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lomba Panjat Pinang: Misi Pizza Buol (2 Pemain)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #1e3a8a 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: float 2.5s ease-in-out infinite;
+        }
+        @keyframes climb {
+            0% { transform: scale(1) translateX(-50%); }
+            50% { transform: scale(1.15) rotate(2deg) translateX(-50%); }
+            100% { transform: scale(1) translateX(-50%); }
+        }
+        .animate-climb {
+            animation: climb 0.4s ease-in-out;
+        }
+        @keyframes slip {
+            0% { transform: translateX(-50%) translateY(0); }
+            25% { transform: translateX(-54%) translateY(4px) rotate(-3deg); }
+            75% { transform: translateX(-46%) translateY(-4px) rotate(3deg); }
+            100% { transform: translateX(-50%) translateY(0); }
+        }
+        .animate-slip {
+            animation: slip 0.3s ease-in-out;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background-color: #f59e0b;
+            animation: confettiFall 3s linear infinite;
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-4 text-slate-800">
+
+    <div id="game-container" class="max-w-4xl w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-4 border-amber-400 overflow-hidden flex flex-col relative mx-auto">
+        
+        <!-- HEADER GAME -->
+        <header class="bg-gradient-to-r from-amber-500 to-orange-600 p-3 sm:p-4 text-white text-center shadow-md relative flex-shrink-0">
+            <div class="absolute top-2.5 left-3 bg-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-extrabold tracking-wider uppercase backdrop-blur-sm">
+                <i class="fa-solid fa-flag-checkered mr-1"></i> Panjat Pinang Edukasi
+            </div>
+            <h1 class="text-base sm:text-xl font-black tracking-wide drop-shadow-md">🌴🍕 Panjat Pinang: Pizza Buol</h1>
+            <p class="text-[10px] sm:text-xs text-amber-100 font-medium mt-0.5">Dua Pemain Beradu Cepat Menjawab & Memanjat Tiang Menuju Puncak!</p>
+        </header>
+
+        <!-- SCREEN 1: MENU UTAMA -->
+        <div id="screen-menu" class="p-6 text-center space-y-5">
+            <div class="w-24 h-24 mx-auto bg-amber-100 rounded-full flex items-center justify-center text-4xl shadow-inner animate-float border-4 border-amber-300 overflow-hidden p-2">
+                <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Karakter Pria" class="w-full h-full object-contain">
+            </div>
+            <div class="space-y-1.5 max-w-md mx-auto">
+                <h2 class="font-black text-slate-800 text-sm sm:text-base">Lomba Panjat Pinang Operasi Pizza Buol!</h2>
+                <p class="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
+                    Layar dibagi dua secara simultan. Player 1 (Tim Merah / Karakter Pria) di kiri, Player 2 (Tim Biru / Karakter Wanita) di kanan. Jawab 10 pertanyaan seputar kuliner dan budaya Kabupaten Buol dengan benar untuk memanjat tiang licin!
+                </p>
+                <div class="bg-amber-50 border border-amber-200 p-2.5 rounded-xl text-[10px] text-amber-800 font-bold mt-2">
+                    💡 Peraturan: Jawab benar naik ke atas, jawab salah terpeleset ke bawah! Siapa capai puncak duluan, dialah juaranya.
+                </div>
+            </div>
+            <div class="pt-1">
+                <button onclick="startGame()" class="w-full max-w-sm py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-black rounded-2xl shadow-lg text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2 mx-auto">
+                    <i class="fa-solid fa-play"></i> Mulai Lomba Panjat Pinang
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: ARENA LOMBA PANJANG PINANG (SIMULTAN 2 PEMAIN DALAM 1 LAYAR) -->
+        <div id="screen-game" class="p-3 sm:p-4 space-y-3 hidden flex-grow">
+            
+            <!-- KOTAK SOAL UTAMA DI ATAS -->
+            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2 shadow-inner text-center">
+                <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 px-1">
+                    <span id="question-progress">Pertanyaan 1 dari 10</span>
+                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-md">Topik: Budaya & Kuliner Buol</span>
+                </div>
+                <h3 id="question-text" class="font-bold text-slate-800 text-xs sm:text-sm min-h-[35px] flex items-center justify-center">
+                    Memuat pertanyaan panjat pinang...
+                </h3>
+            </div>
+
+            <!-- AREA SIMULTAN SPLIT SCREEN (KIRI: P1 MERAH, KANAN: P2 BIRU) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                
+                <!-- PLAYER 1 PANEL & TIANG PINANG (MERAH - PRIA) -->
+                <div id="p1-panel" class="bg-rose-50/90 border-2 border-rose-300 p-3 rounded-2xl space-y-2.5 shadow-sm relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center bg-rose-100/80 px-3 py-1.5 rounded-xl border border-rose-200">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-white p-0.5 border border-rose-300 overflow-hidden shadow-xs flex items-center justify-center">
+                                <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Pria" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <span class="text-[9px] font-extrabold text-rose-700 uppercase tracking-wider block">👤 Player 1</span>
+                                <h4 class="font-black text-rose-900 text-xs">Tim Merah</h4>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="p1-height" class="text-sm font-black text-rose-800">0 M</span>
+                            <span class="text-[8px] text-rose-500 block font-bold">Ketinggian</span>
+                        </div>
+                    </div>
+
+                    <!-- VISUAL TIANG PINANG P1 -->
+                    <div class="bg-rose-100/70 border border-rose-200 rounded-xl h-48 relative overflow-hidden flex items-end justify-center pb-2">
+                        <!-- Puncak Tiang / Hadiah Pizza Buol Raksasa -->
+                        <div class="absolute top-2 left-0 right-0 text-center z-20">
+                            <span class="text-2xl animate-bounce drop-shadow">🍕🏆</span>
+                        </div>
+                        <!-- Tiang Pinang Batang Kayu (Dikecilkan lebarnya agar proporsional dengan karakter) -->
+                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-36 rounded-sm relative shadow-inner overflow-visible">
+                            <!-- Karakter Pemanjat Pria Menempel Realistis Memegang Tiang -->
+                            <div id="p1-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-16 h-16 flex items-center justify-center z-30 drop-shadow-lg">
+                                <img src="https://i.ibb.co.com/0RWKhCjn/pria.png" alt="Karakter Pria" class="w-full h-full object-contain filter drop-shadow-md">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILIHAN JAWABAN P1 -->
+                    <div id="p1-options" class="space-y-1.5"></div>
+                    <div id="p1-status" class="text-center text-[10px] font-bold py-1 min-h-[22px] text-rose-800">Bersiap memanjat tiang...</div>
+                </div>
+
+                <!-- PLAYER 2 PANEL & TIANG PINANG (BIRU - WANITA) -->
+                <div id="p2-panel" class="bg-blue-50/90 border-2 border-blue-300 p-3 rounded-2xl space-y-2.5 shadow-sm relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center bg-blue-100/80 px-3 py-1.5 rounded-xl border border-blue-200">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-white p-0.5 border border-blue-300 overflow-hidden shadow-xs flex items-center justify-center">
+                                <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Wanita" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <span class="text-[9px] font-extrabold text-blue-700 uppercase tracking-wider block">👤 Player 2</span>
+                                <h4 class="font-black text-blue-900 text-xs">Tim Biru</h4>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="p2-height" class="text-sm font-black text-blue-800">0 M</span>
+                            <span class="text-[8px] text-blue-500 block font-bold">Ketinggian</span>
+                        </div>
+                    </div>
+
+                    <!-- VISUAL TIANG PINANG P2 -->
+                    <div class="bg-sky-100/70 border border-blue-200 rounded-xl h-48 relative overflow-hidden flex items-end justify-center pb-2">
+                        <!-- Puncak Tiang / Hadiah Pizza Buol Raksasa -->
+                        <div class="absolute top-2 left-0 right-0 text-center z-20">
+                            <span class="text-2xl animate-bounce drop-shadow">🍕🏆</span>
+                        </div>
+                        <!-- Tiang Pinang Batang Kayu (Dikecilkan lebarnya agar proporsional dengan karakter) -->
+                        <div class="w-4 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-950 h-36 rounded-sm relative shadow-inner overflow-visible">
+                            <!-- Karakter Pemanjat Wanita Menempel Realistis Memegang Tiang -->
+                            <div id="p2-climber" class="absolute left-1/2 -translate-x-1/2 bottom-0 transition-all duration-300 w-16 h-16 flex items-center justify-center z-30 drop-shadow-lg">
+                                <img src="https://i.ibb.co.com/j2s40Mf/wanita.png" alt="Karakter Wanita" class="w-full h-full object-contain filter drop-shadow-md">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILIHAN JAWABAN P2 -->
+                    <div id="p2-options" class="space-y-1.5"></div>
+                    <div id="p2-status" class="text-center text-[10px] font-bold py-1 min-h-[22px] text-blue-800">Bersiap memanjat tiang...</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SCREEN 3: LAYAR KEMENANGAN -->
+        <div id="screen-victory" class="p-6 text-center space-y-5 hidden relative overflow-hidden min-h-[350px]">
+            <!-- Kontainer Efek Kertas Konfeti Keren -->
+            <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden z-10"></div>
+
+            <div class="relative z-20 space-y-4">
+                <div class="w-20 h-20 mx-auto bg-amber-400 text-white rounded-full flex items-center justify-center text-3xl shadow-lg animate-bounce">
+                    🏆
+                </div>
+                <div class="space-y-1.5">
+                    <h2 id="victory-title" class="font-black text-slate-900 text-base sm:text-lg">Juara Panjat Pinang Pizza Buol!</h2>
+                    <p id="victory-desc" class="text-xs text-slate-600 font-medium">Puncak tiang berhasil dicapai!</p>
+                </div>
+
+                <!-- REKAP KETINGGIAN AKHIR -->
+                <div class="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+                    <div class="bg-rose-50 p-3 rounded-xl border border-rose-200">
+                        <span class="text-[9px] font-bold text-rose-600 block">Tim Merah (P1)</span>
+                        <span id="final-p1-height" class="text-lg font-black text-rose-900">0 M</span>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                        <span class="text-[9px] font-bold text-blue-600 block">Tim Biru (P2)</span>
+                        <span id="final-p2-height" class="text-lg font-black text-blue-900">0 M</span>
+                    </div>
+                </div>
+
+                <div class="pt-1">
+                    <button onclick="resetGame()" class="w-full max-w-xs mx-auto py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-white font-black rounded-2xl shadow-md text-xs transition transform active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i> Mainkan Lomba Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const quizBank = [
+            {
+                question: "Lyabulyo atau yang dikenal sebagai Pizza Buol merupakan salah satu makanan tradisional yang menjadi bagian dari kekayaan kuliner daerah …",
+                options: ["A. Buol", "B. Poso", "C. Banggai", "D. Donggala"],
+                answer: 0
+            },
+            {
+                question: "Salah satu bahan utama yang menjadi ciri khas Lyabulyo adalah …",
+                options: ["A. Tepung terigu", "B. Sagu", "C. Beras ketan", "D. Tepung jagung"],
+                answer: 1
+            },
+            {
+                question: "Pemanfaatan sagu dalam pembuatan Lyabulyo menunjukkan bahwa masyarakat Buol sejak dahulu memanfaatkan …",
+                options: ["A. Bahan makanan dari luar daerah", "B. Sumber daya alam yang tersedia di daerahnya", "C. Produk makanan cepat saji", "D. Bahan makanan impor"],
+                answer: 1
+            },
+            {
+                question: "Mengapa Lyabulyo dapat disebut sebagai bagian dari warisan budaya daerah Buol?",
+                options: ["A. Karena hanya dibuat menggunakan bahan mahal", "B. Karena memiliki keterkaitan dengan tradisi dan pengetahuan kuliner masyarakat setempat", "C. Karena mengikuti makanan dari luar negeri", "D. Karena hanya dijual di restoran modern"],
+                answer: 1
+            },
+            {
+                question: "Mengetahui makanan tradisional seperti Lyabulyo penting bagi generasi muda karena …",
+                options: ["A. Semua makanan modern harus ditinggalkan", "B. Generasi muda dapat mengenal dan meneruskan warisan budaya daerah", "C. Makanan tradisional harus dijual dengan harga mahal", "D. Makanan daerah tidak boleh mengalami perkembangan"],
+                answer: 1
+            },
+            {
+                question: "Seorang siswa mengatakan, “Lyabulyo itu makanan zaman dulu, jadi tidak menarik bagi anak muda.” Tanggapan yang paling tepat adalah …",
+                options: ["A. Membenarkan pendapat tersebut", "B. Mengajak siswa tersebut mengenal nilai budaya dan keunikan Lyabulyo", "C. Menyuruhnya menyukai Lyabulyo", "D. Membandingkannya dengan makanan luar negeri"],
+                answer: 1
+            },
+            {
+                question: "Salah satu cara paling sederhana yang dapat dilakukan pelajar untuk ikut melestarikan Lyabulyo adalah …",
+                options: ["A. Mempelajari dan mengenalkan Lyabulyo kepada orang lain", "B. Membiarkan hanya orang tua yang mengetahuinya", "C. Menganggapnya sebagai makanan kuno", "D. Menghindari pembicaraan tentang makanan tradisional"],
+                answer: 0
+            },
+            {
+                question: "Media sosial dapat dimanfaatkan untuk melestarikan Lyabulyo dengan cara …",
+                options: ["A. Membuat konten tentang sejarah, proses pembuatan, dan keunikan Lyabulyo", "B. Mengubah asal-usul Lyabulyo agar lebih menarik", "C. Menghapus informasi tentang makanan tradisional", "D. Membandingkan budaya Buol secara negatif dengan daerah lain"],
+                answer: 0
+            },
+            {
+                question: "Jika generasi muda semakin jarang mengenal Lyabulyo, dampak yang mungkin terjadi adalah …",
+                options: ["A. Pengetahuan tentang makanan tersebut dapat semakin berkurang", "B. Lyabulyo akan otomatis semakin terkenal", "C. Budaya daerah akan berkembang tanpa perlu diwariskan", "D. Masyarakat akan semakin memahami sejarahnya"],
+                answer: 0
+            },
+            {
+                question: "Seorang siswa membuat desain kemasan Lyabulyo yang modern tanpa menghilangkan identitas dan ciri khas daerah Buol. Tindakan tersebut merupakan contoh …",
+                options: ["A. Penghapusan budaya", "B. Pelestarian budaya melalui inovasi", "C. Penolakan terhadap budaya lokal", "D. Penggantian budaya daerah"],
+                answer: 1
+            },
+            {
+                question: "Sekelompok siswa membuat video pendek tentang Lyabulyo, mulai dari bahan sagu hingga proses pembuatannya, kemudian membagikannya di media sosial. Kegiatan tersebut menunjukkan bahwa teknologi dapat digunakan untuk …",
+                options: ["A. Menghilangkan budaya tradisional", "B. Mempromosikan dan mendokumentasikan budaya daerah", "C. Menggantikan seluruh tradisi masyarakat", "D. Mengubah sejarah daerah"],
+                answer: 1
+            },
+            {
+                question: "Ketika memperkenalkan Lyabulyo kepada orang dari luar Buol, sikap yang paling tepat adalah …",
+                options: ["A. Menjelaskan asal-usul dan keunikannya dengan informasi yang benar", "B. Mengaku bahwa Lyabulyo berasal dari daerah lain", "C. Mengubah cerita agar terdengar lebih hebat", "D. Tidak perlu menyebutkan asal daerahnya"],
+                answer: 0
+            },
+            {
+                question: "Salah satu manfaat melestarikan Lyabulyo bagi masyarakat Buol adalah …",
+                options: ["A. Memperkuat identitas dan kebanggaan terhadap budaya daerah", "B. Mengurangi penggunaan bahan lokal", "C. Menghilangkan makanan tradisional", "D. Membuat generasi muda melupakan budaya daerah"],
+                answer: 0
+            },
+            {
+                question: "Jika sekolah ingin mengadakan kegiatan untuk mengenalkan Lyabulyo kepada siswa, kegiatan yang paling tepat adalah …",
+                options: ["A. Mengadakan pameran atau festival kuliner tradisional Buol", "B. Melarang siswa mengenal makanan tradisional", "C. Hanya menyajikan makanan dari luar daerah", "D. Menghapus materi budaya lokal"],
+                answer: 0
+            },
+            {
+                question: "Seorang siswa ingin membuat konten TikTok tentang Lyabulyo. Agar konten tersebut ikut melestarikan budaya, sebaiknya ia …",
+                options: ["A. Membuat konten yang informatif, kreatif, dan berdasarkan fakta", "B. Membuat cerita palsu agar viral", "C. Menghilangkan nama Buol dari konten", "D. Mengubah seluruh bahan asli Lyabulyo"],
+                answer: 0
+            },
+            {
+                question: "Pelestarian budaya tidak berarti menolak perkembangan zaman. Contoh yang tepat dalam melestarikan Lyabulyo adalah …",
+                options: ["A. Mempertahankan nilai dan identitas Lyabulyo sambil menggunakan teknologi untuk mengenalkannya", "B. Menolak semua bentuk teknologi", "C. Mengubah Lyabulyo menjadi makanan asing", "D. Menghentikan pembuatan Lyabulyo secara tradisional"],
+                answer: 0
+            },
+            {
+                question: "Mengapa generasi muda perlu mempelajari makanan tradisional seperti Lyabulyo meskipun banyak makanan modern yang lebih populer?",
+                options: ["A. Karena makanan tradisional merupakan bagian dari identitas dan sejarah masyarakat", "B. Karena makanan modern tidak boleh dimakan", "C. Karena semua makanan tradisional pasti lebih enak", "D. Karena generasi muda tidak boleh mengikuti perkembangan zaman"],
+                answer: 0
+            },
+            {
+                question: "Bayangkan Lyabulyo mulai jarang dibuat karena anak-anak muda tidak tertarik mempelajarinya. Tindakan yang paling tepat dilakukan generasi muda adalah …",
+                options: ["A. Mempelajari cara pembuatannya dari orang yang masih menguasai pengetahuan tersebut", "B. Membiarkannya hilang karena dianggap kuno", "C. Menggantinya dengan makanan luar daerah", "D. Menunggu pemerintah melakukan semuanya"],
+                answer: 0
+            },
+            {
+                question: "Seorang siswa memiliki ide membuat “Festival Lyabulyo” di sekolah yang menampilkan makanan, sejarah, cerita masyarakat, dan kreativitas siswa. Nilai yang paling terlihat dari kegiatan tersebut adalah …",
+                options: ["A. Pelestarian budaya melalui kreativitas generasi muda", "B. Persaingan antardaerah", "C. Penolakan terhadap budaya modern", "D. Penghapusan tradisi lama"],
+                answer: 0
+            },
+            {
+                question: "Budaya daerah akan tetap hidup apabila generasi mudanya mau mengenal, menghargai, mempraktikkan, mengembangkan, dan memperkenalkannya kepada orang lain. Peran generasi muda dalam melestarikan Lyabulyo adalah …",
+                options: ["A. Cukup mengetahui nama Lyabulyo", "B. Menyerahkan pelestarian sepenuhnya kepada orang tua", "C. Mengenal, mempelajari, mengembangkan, mempromosikan, dan mewariskannya kepada generasi berikutnya", "D. Mengubah Lyabulyo sepenuhnya mengikuti makanan modern"],
+                answer: 2
+            }
+        ];
+
+        let activeQuiz = [];
+        let currentQIndex = 0;
+        let p1Position = 0; // dalam meter (0 sampai 100)
+        let p2Position = 0;
+        let answeredStatus = { p1: false, p2: false };
+        const maxHeight = 100; // Puncak 100 Meter
+        const totalQuestions = 10;
+
+        // Fungsi mengacak soal (Fisher-Yates)
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function startGame() {
+            // Ambil dan acak 10 soal dari bank soal
+            activeQuiz = shuffle([...quizBank]).slice(0, totalQuestions);
+            currentQIndex = 0;
+            p1Position = 0;
+            p2Position = 0;
+            document.getElementById('screen-menu').classList.add('hidden');
+            document.getElementById('screen-victory').classList.add('hidden');
+            document.getElementById('screen-game').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function updatePositionsUI() {
+            document.getElementById('p1-height').innerText = p1Position + " M";
+            document.getElementById('p2-height').innerText = p2Position + " M";
+
+            // Hitung persentase tinggi tiang (0% sampai 75% agar tidak keluar container)
+            let p1Percent = Math.min((p1Position / maxHeight) * 75, 75);
+            let p2Percent = Math.min((p2Position / maxHeight) * 75, 75);
+
+            document.getElementById('p1-climber').style.bottom = p1Percent + "%";
+            document.getElementById('p2-climber').style.bottom = p2Percent + "%";
+        }
+
+        function loadQuestion() {
+            answeredStatus = { p1: false, p2: false };
+            const q = activeQuiz[currentQIndex];
+            document.getElementById('question-progress').innerText = `Pertanyaan ${currentQIndex + 1} dari ${totalQuestions}`;
+            document.getElementById('question-text').innerText = q.question;
+
+            document.getElementById('p1-status').innerText = "Siap memanjat!";
+            document.getElementById('p2-status').innerText = "Siap memanjat!";
+
+            renderOptionsForPlayer('p1', q);
+            renderOptionsForPlayer('p2', q);
+            updatePositionsUI();
+        }
+
+        function renderOptionsForPlayer(player, q) {
+            const container = document.getElementById(`${player}-options`);
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-2 rounded-xl border border-slate-200 bg-white hover:bg-amber-50 text-slate-700 font-semibold text-[11px] transition shadow-2xs cursor-pointer flex items-center justify-between`;
+                btn.innerHTML = `<span>${opt}</span>`;
+                btn.onclick = () => handlePlayerAnswer(player, idx, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function handlePlayerAnswer(player, selectedIndex, btnElement) {
+            if (answeredStatus[player]) return;
+            answeredStatus[player] = true;
+
+            const q = activeQuiz[currentQIndex];
+            const statusEl = document.getElementById(`${player}-status`);
+            const allBtns = document.getElementById(`${player}-options`).querySelectorAll('button');
+            const climberEl = document.getElementById(`${player}-climber`);
+
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selectedIndex === q.answer) {
+                // Jawaban Benar: Naik 10 Meter (karena ada 10 soal total 100M)
+                if (player === 'p1') p1Position = Math.min(p1Position + 10, maxHeight);
+                else p2Position = Math.min(p2Position + 10, maxHeight);
+
+                btnElement.className = "w-full text-left p-2 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-[11px] flex items-center justify-between";
+                btnElement.innerHTML += ` <i class="fa-solid fa-circle-check text-emerald-600"></i>`;
+                statusEl.innerHTML = `<span class="text-emerald-700 font-extrabold">🚀 Naik +10 Meter!</span>`;
+                
+                climberEl.classList.add('animate-climb');
+                setTimeout(() => climberEl.classList.remove('animate-climb'), 400);
+            } else {
+                // Jawaban Salah: Terpeleset turun 5 Meter
+                if (player === 'p1') p1Position = Math.max(p1Position - 5, 0);
+                else p2Position = Math.max(p2Position - 5, 0);
+
+                btnElement.className = "w-full text-left p-2 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-900 font-bold text-[11px] flex items-center justify-between";
+                btnElement.innerHTML += ` <i class="fa-solid fa-circle-xmark text-rose-600"></i>`;
+                allBtns[q.answer].className = "w-full text-left p-2 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-[11px] flex items-center justify-between";
+                statusEl.innerHTML = `<span class="text-rose-700 font-extrabold">💦 Terpeleset -5 M!</span>`;
+
+                climberEl.classList.add('animate-slip');
+                setTimeout(() => climberEl.classList.remove('animate-slip'), 300);
+            }
+
+            updatePositionsUI();
+
+            // Cek apakah ada yang sudah mencapai puncak (100 Meter) atau soal habis
+            if (p1Position >= maxHeight || p2Position >= maxHeight || currentQIndex >= totalQuestions - 1) {
+                setTimeout(showVictoryScreen, 1200);
+                return;
+            }
+
+            // Jika kedua pemain sudah menjawab, lanjut ke soal berikutnya setelah 2 detik
+            if (answeredStatus.p1 && answeredStatus.p2) {
+                setTimeout(() => {
+                    currentQIndex++;
+                    loadQuestion();
+                }, 2000);
+            }
+        }
+
+        function showVictoryScreen() {
+            document.getElementById('screen-game').classList.add('hidden');
+            document.getElementById('screen-victory').classList.remove('hidden');
+
+            document.getElementById('final-p1-height').innerText = p1Position + " M";
+            document.getElementById('final-p2-height').innerText = p2Position + " M";
+
+            const titleEl = document.getElementById('victory-title');
+            const descEl = document.getElementById('victory-desc');
+
+            if (p1Position > p2Position) {
+                titleEl.innerHTML = "🏆 TIM MERAH (PLAYER 1) JUARA 1!";
+                descEl.innerHTML = "Luar biasa! Tim Merah berhasil meraih puncak tiang pinang dan merebut Pizza Buol!";
+            } else if (p2Position > p1Position) {
+                titleEl.innerHTML = "🏆 TIM BIRU (PLAYER 2) JUARA 1!";
+                descEl.innerHTML = "Hebat! Tim Biru melesat cepat ke puncak tiang pinang!";
+            } else {
+                titleEl.innerHTML = "🤝 HASIL SERI DI PUNCAK (DRAW)!";
+                descEl.innerHTML = "Keren! Kedua tim mencapai ketinggian yang sama dan menikmati Pizza Buol bersama!";
+            }
+
+            // Munculkan efek konfeti kertas selebrasi
+            launchConfetti();
+        }
+
+        function launchConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            const colors = ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#8b5cf6', '#ec4899'];
+            for (let i = 0; i < 40; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + '%';
+                conf.style.top = (Math.random() * -20) + 'px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDuration = (2 + Math.random() * 2) + 's';
+                conf.style.animationDelay = (Math.random() * 1.5) + 's';
+                container.appendChild(conf);
+            }
+        }
+
+        function resetGame() {
+            startGame();
+        }
+    </script>
+</body>
+</html>
